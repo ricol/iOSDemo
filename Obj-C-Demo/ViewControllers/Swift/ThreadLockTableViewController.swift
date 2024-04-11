@@ -161,4 +161,34 @@ class ThreadLockTableViewController: ListTableViewController {
         }
         print("end")
     }
+    
+    @objc func testDispatchQueueSync() {
+        var data = [Int]()
+        let queue = DispatchQueue(label: "myqueue")
+        Thread.detachNewThread {
+            for i in 0...1000 {
+                queue.async {
+                    data.append(i)
+                }
+            }
+        }
+        Thread.detachNewThread {
+            for i in 1001...2000 {
+                queue.async {
+                    data.append(i)
+                }
+            }
+        }
+        Thread.detachNewThread {
+            var i = 0
+            while i < 5 {
+                sleep(1)
+                i += 1
+                queue.async {
+                    print("data.count: \(data.count)")
+                }
+            }
+            print("end.")
+        }
+    }
 }
