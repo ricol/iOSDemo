@@ -89,8 +89,7 @@ class ThreadLockTableViewController: ListTableViewController {
                 if data.count <= 0 {
                     print("\(Thread.current)...no data to read...wait...")
                     lock.wait()
-                }
-                if data.count > 0 {
+                }else {
                     let value = data.removeFirst()
                     print("\(Thread.current)...get value: \(value) remaining: \(data.count)")
                 }
@@ -151,13 +150,25 @@ class ThreadLockTableViewController: ListTableViewController {
     
     @objc func testNSRecursiveLock() {
         let lock = NSRecursiveLock()
-        for i in 0...10 {
-            lock.lock()
-            print("lock...\(i)")
+        Thread.detachNewThread {
+            for i in 0...10 {
+                lock.lock()
+                print("[\(Thread.current)lock...\(i)")
+            }
+            for i in 0...10 {
+                lock.unlock()
+                print("[\(Thread.current)unlock...\(i)")
+            }
         }
-        for i in 0...10 {
-            lock.unlock()
-            print("unlock...\(i)")
+        Thread.detachNewThread {
+            for i in 0...10 {
+                lock.lock()
+                print("[\(Thread.current)]lock...\(i)")
+            }
+            for i in 0...10 {
+                lock.unlock()
+                print("[\(Thread.current)unlock...\(i)")
+            }
         }
         print("end")
     }

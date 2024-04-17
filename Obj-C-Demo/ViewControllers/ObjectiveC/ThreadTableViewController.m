@@ -159,7 +159,6 @@
          });
 
     }
-    return;
     {
         // 创建信号量并初始值为5，最大并发量5
         dispatch_semaphore_t semaphore =  dispatch_semaphore_create(10);

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED27FA482B97023200ECFADF /* MyUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED27FA472B97023200ECFADF /* MyUIViewController.swift */; };
+		ED4353C72BCCCB5100422351 /* ObjCRuntimeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4353C62BCCCB5100422351 /* ObjCRuntimeTableViewController.m */; };
 		ED52866C2B9776EB00B8D534 /* MyObjcThread.m in Sources */ = {isa = PBXBuildFile; fileRef = ED52866B2B9776EB00B8D534 /* MyObjcThread.m */; };
 		ED6FAC442BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6FAC432BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.m */; };
 		ED6FAC482BB471D100AD2DEC /* AnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6FAC472BB471D100AD2DEC /* AnimationViewController.m */; };
@@ -34,7 +35,6 @@
 		EDB143262B7B1F1A00494CFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB143252B7B1F1A00494CFB /* main.m */; };
 		EDB1432E2B7B207400494CFB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1432D2B7B207400494CFB /* Person.m */; };
 		EDB1438D2B86131000494CFB /* Pet.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB1438C2B86131000494CFB /* Pet.m */; };
-		EDB143902B87022000494CFB /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB1438F2B87022000494CFB /* extensions.swift */; };
 		EDB143932B87648600494CFB /* MyThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB143922B87648600494CFB /* MyThread.swift */; };
 		EDB143952B876AE100494CFB /* TouchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB143942B876AE100494CFB /* TouchViewController.swift */; };
 		EDB143992B87835100494CFB /* MyNotifClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB143982B87835100494CFB /* MyNotifClass.swift */; };
@@ -48,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		ED27FA472B97023200ECFADF /* MyUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUIViewController.swift; sourceTree = "<group>"; };
+		ED4353C52BCCCB5100422351 /* ObjCRuntimeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCRuntimeTableViewController.h; sourceTree = "<group>"; };
+		ED4353C62BCCCB5100422351 /* ObjCRuntimeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCRuntimeTableViewController.m; sourceTree = "<group>"; };
 		ED52866A2B9776EB00B8D534 /* MyObjcThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyObjcThread.h; sourceTree = "<group>"; };
 		ED52866B2B9776EB00B8D534 /* MyObjcThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyObjcThread.m; sourceTree = "<group>"; };
 		ED6FAC422BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveCAnimationTableViewController.h; sourceTree = "<group>"; };
@@ -93,7 +95,6 @@
 		EDB1438B2B86131000494CFB /* Pet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pet.h; sourceTree = "<group>"; };
 		EDB1438C2B86131000494CFB /* Pet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pet.m; sourceTree = "<group>"; };
 		EDB1438E2B87022000494CFB /* Obj-C-Demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Obj-C-Demo-Bridging-Header.h"; sourceTree = "<group>"; };
-		EDB1438F2B87022000494CFB /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		EDB143922B87648600494CFB /* MyThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyThread.swift; sourceTree = "<group>"; };
 		EDB143942B876AE100494CFB /* TouchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchViewController.swift; sourceTree = "<group>"; };
 		EDB143982B87835100494CFB /* MyNotifClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotifClass.swift; sourceTree = "<group>"; };
@@ -143,6 +144,8 @@
 				EDBDBC8E2BB3CD230078EA1A /* ThreadTableViewController.m */,
 				ED6FAC422BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.h */,
 				ED6FAC432BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.m */,
+				ED4353C52BCCCB5100422351 /* ObjCRuntimeTableViewController.h */,
+				ED4353C62BCCCB5100422351 /* ObjCRuntimeTableViewController.m */,
 			);
 			path = ObjectiveC;
 			sourceTree = "<group>";
@@ -207,7 +210,6 @@
 		EDB143AA2B8B146100494CFB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EDB1438F2B87022000494CFB /* extensions.swift */,
 				EDB143922B87648600494CFB /* MyThread.swift */,
 				EDB143982B87835100494CFB /* MyNotifClass.swift */,
 				EDB1439A2B879E7800494CFB /* MyClassForKVO.swift */,
@@ -330,7 +332,6 @@
 				EDB143B02B8B16B100494CFB /* MyTimerProxy.m in Sources */,
 				ED6FAC442BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.m in Sources */,
 				EDB1432E2B7B207400494CFB /* Person.m in Sources */,
-				EDB143902B87022000494CFB /* extensions.swift in Sources */,
 				EDB1438D2B86131000494CFB /* Pet.m in Sources */,
 				ED6FAC4A2BB9BBBF00AD2DEC /* CoroutineTableViewController.swift in Sources */,
 				EDB143A42B8B136800494CFB /* BaseViewController.swift in Sources */,
@@ -354,6 +355,7 @@
 				ED7A927F2BC1873D00ADAD81 /* Pair.m in Sources */,
 				EDB143932B87648600494CFB /* MyThread.swift in Sources */,
 				EDB143952B876AE100494CFB /* TouchViewController.swift in Sources */,
+				ED4353C72BCCCB5100422351 /* ObjCRuntimeTableViewController.m in Sources */,
 				EDB143992B87835100494CFB /* MyNotifClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
