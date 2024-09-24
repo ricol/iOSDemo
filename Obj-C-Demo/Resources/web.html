@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button onclick="createText()">create text</button>
+    <button onclick="toMobileMsg()">send msg to mobile</button>
+    <button onclick="scriptFromMobile()">from mobile</button>
+    <p id="paralog"></p>
+    <p id="userClickLog"></p>
+    <script>
+      function createText() {
+        document.getElementById("paralog").innerHTML += "<br />Creating paragraph"
+      }
+      function toMobileMsg() {
+        webkit.messageHandlers.toMobile.postMessage("popup")
+      }
+      function scriptFromMobile() {
+          webkit.messageHandlers.fromMobile.onMessage = (msg) => {
+            document.getElementById('userClickLog').innerHTML = "from mobile: " + "<br />" + msg
+          }
+        webkit.messageHandlers.fromMobile.postMessage("getUserCount");
+      }
+    </script>
+  </body>
+</html>

@@ -6,16 +6,20 @@
 //
 
 #import "AppDelegate.h"
+#import "Obj_C_Demo-Swift.h"
 
 @interface AppDelegate ()
+
+@property (strong) MyNotificationCenter *notifCenter;
 
 @end
 
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey,id> *)launchOptions {
+    self.notifCenter = [MyNotificationCenter new];
+    [self.notifCenter registerNotification];
     return YES;
 }
 
@@ -36,5 +40,8 @@
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [Utils showDialogWithTitle:@"didReceiveRemoteNotification" msg:[NSString stringWithFormat:@"userInfo: %@", userInfo]];
+}
 
 @end
