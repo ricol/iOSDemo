@@ -12,6 +12,7 @@
 		ED3741802C3710C400C756AC /* RotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37417F2C3710C400C756AC /* RotationViewController.swift */; };
 		ED3741822C3710E600C756AC /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3741812C3710E600C756AC /* MainNavigationController.swift */; };
 		ED4353C72BCCCB5100422351 /* ObjCRuntimeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4353C62BCCCB5100422351 /* ObjCRuntimeTableViewController.m */; };
+		ED494D2B2CA67A8C008A0B74 /* IOSTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */; };
 		ED52866C2B9776EB00B8D534 /* MyObjcThread.m in Sources */ = {isa = PBXBuildFile; fileRef = ED52866B2B9776EB00B8D534 /* MyObjcThread.m */; };
 		ED5B95812C8F2D1200344BF1 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B95802C8F2D1200344BF1 /* CollectionViewController.swift */; };
 		ED5B95832C8F447900344BF1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B95822C8F447900344BF1 /* TableViewController.swift */; };
@@ -70,6 +71,7 @@
 		ED3741812C3710E600C756AC /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		ED4353C52BCCCB5100422351 /* ObjCRuntimeTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCRuntimeTableViewController.h; sourceTree = "<group>"; };
 		ED4353C62BCCCB5100422351 /* ObjCRuntimeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCRuntimeTableViewController.m; sourceTree = "<group>"; };
+		ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSTableViewController.swift; sourceTree = "<group>"; };
 		ED52866A2B9776EB00B8D534 /* MyObjcThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyObjcThread.h; sourceTree = "<group>"; };
 		ED52866B2B9776EB00B8D534 /* MyObjcThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyObjcThread.m; sourceTree = "<group>"; };
 		ED5B95802C8F2D1200344BF1 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				EDEAF0AF2C7780F400A2D5B1 /* NetworkViewController.swift */,
 				ED5B95802C8F2D1200344BF1 /* CollectionViewController.swift */,
 				ED5B95822C8F447900344BF1 /* TableViewController.swift */,
+				ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				EDEAF0AB2C777B0300A2D5B1 /* NetworkAvailability.swift in Sources */,
 				ED7A928E2BC6FAEB00ADAD81 /* ThreadLockTableViewController.swift in Sources */,
 				EDC6E2B42C6A5874009229FD /* WebViewController.swift in Sources */,
+				ED494D2B2CA67A8C008A0B74 /* IOSTableViewController.swift in Sources */,
 				EDD371C32C5CC81800751F46 /* MyNotificationCenter.swift in Sources */,
 				EDA9B3832C98134500ED35D9 /* ImageTitleTableViewCell.swift in Sources */,
 				EDB03C1C2BAE96100038E82E /* ObjectiveCTableViewController.m in Sources */,

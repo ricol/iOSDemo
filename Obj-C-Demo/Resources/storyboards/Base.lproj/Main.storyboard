@@ -13,7 +13,7 @@
         <!--IOS-->
         <scene sceneID="2cs-H1-sGU">
             <objects>
-                <tableViewController title="IOS" id="Tuz-yd-pWv" sceneMemberID="viewController">
+                <tableViewController title="IOS" id="Tuz-yd-pWv" customClass="IOSTableViewController" customModule="Obj_C_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="GDA-iF-Ceu">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,6 +119,26 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="JMp-Vx-hWT" kind="show" id="fnr-Ny-MRs"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="2Pd-68-Vdn" style="IBUITableViewCellStyleDefault" id="494-Vo-1Mi">
+                                        <rect key="frame" x="0.0" y="268.33333969116211" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="494-Vo-1Mi" id="SiE-kJ-AHF">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="StatusBar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Pd-68-Vdn">
+                                                    <rect key="frame" x="20" y="0.0" width="353" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="LuX-eV-HKO" kind="show" id="yAy-cI-SOd"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -2247,6 +2267,84 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IbL-G6-34g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-773" y="794"/>
+        </scene>
+        <!--Status Bar Demo-->
+        <scene sceneID="Qtn-nv-Shh">
+            <objects>
+                <viewController storyboardIdentifier="StatusBarDemoViewController" title="Status Bar Demo" id="LuX-eV-HKO" customClass="StatusBarDemoViewController" customModule="Obj_C_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ogC-OR-KqK">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHb-ES-1gf">
+                                <rect key="frame" x="0.0" y="30" width="393" height="822"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UPA-eq-gP7">
+                                <rect key="frame" x="88.333333333333329" y="357.33333333333331" width="216.66666666666669" height="137.33333333333331"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Loj-UC-J9N">
+                                        <rect key="frame" x="0.0" y="0.0" width="216.66666666666666" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="LightContent"/>
+                                        <connections>
+                                            <action selector="btnLightContentOnTapped:" destination="LuX-eV-HKO" eventType="touchUpInside" id="qlj-E7-srB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nuw-eY-nMd">
+                                        <rect key="frame" x="0.0" y="34.333333333333371" width="216.66666666666666" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="DarkContent"/>
+                                        <connections>
+                                            <action selector="btnDarkContentOnTapped:" destination="LuX-eV-HKO" eventType="touchUpInside" id="ImI-MC-WrZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRA-kv-zmr">
+                                        <rect key="frame" x="0.0" y="68.666666666666686" width="216.66666666666666" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="PresentWithLightContent"/>
+                                        <connections>
+                                            <action selector="btnPresentWithLightContentOnTapped:" destination="LuX-eV-HKO" eventType="touchUpInside" id="mXe-3K-RlK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IwC-4B-kvU">
+                                        <rect key="frame" x="0.0" y="103" width="216.66666666666666" height="34.333333333333343"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="PresentWithDarkContent"/>
+                                        <connections>
+                                            <action selector="btnPresentWithDarContentOnTapped:" destination="LuX-eV-HKO" eventType="touchUpInside" id="wQw-tU-qOk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="X4V-5v-uOv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="UPA-eq-gP7" firstAttribute="centerX" secondItem="ogC-OR-KqK" secondAttribute="centerX" id="Cos-qT-hyj"/>
+                            <constraint firstItem="UPA-eq-gP7" firstAttribute="centerY" secondItem="ogC-OR-KqK" secondAttribute="centerY" id="S2g-Sm-KrE"/>
+                            <constraint firstItem="kHb-ES-1gf" firstAttribute="trailing" secondItem="X4V-5v-uOv" secondAttribute="trailing" id="ayn-q2-MQ1"/>
+                            <constraint firstItem="kHb-ES-1gf" firstAttribute="leading" secondItem="X4V-5v-uOv" secondAttribute="leading" id="bMs-bG-ebz"/>
+                            <constraint firstItem="kHb-ES-1gf" firstAttribute="top" secondItem="ogC-OR-KqK" secondAttribute="top" constant="30" id="lxs-fi-E12"/>
+                            <constraint firstAttribute="bottom" secondItem="kHb-ES-1gf" secondAttribute="bottom" id="ylT-0c-h9g"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="MYVC" id="XET-nY-Znp"/>
+                    <navigationItem key="navigationItem" id="wbz-3W-2LC">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="W0l-ME-oel">
+                            <connections>
+                                <action selector="btnDoneOnTapped:" destination="LuX-eV-HKO" id="Tv6-CY-AMo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="btnClose" destination="W0l-ME-oel" id="yQT-GN-Fx7"/>
+                        <outlet property="childView" destination="kHb-ES-1gf" id="ZV6-mQ-S2B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FPR-jU-xVa" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1108" y="1535"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

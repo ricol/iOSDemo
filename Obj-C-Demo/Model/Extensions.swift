@@ -99,7 +99,7 @@ extension String {
 
 extension UIViewController {
     func embedInNavigationController() -> UIViewController {
-        let navigationController = UINavigationController(rootViewController: self)
+        let navigationController = MainNavigationController(rootViewController: self)
         return navigationController
     }
 }
