@@ -60,4 +60,25 @@ class NetworkTableViewController: ListTableViewController {
             }
         }
     }
+    
+    @objc func testURLSession() {
+        let config = URLSessionConfiguration.background(withIdentifier: "\(Bundle.main.bundleIdentifier!).background")
+        let urlSession = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        let task = urlSession.downloadTask(with: URL(string: "https://wallpapercave.com/wp/wp2309567.jpg")!)
+        task.resume()
+    }
+}
+
+extension NetworkTableViewController: URLSessionDelegate, URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print("[\(Thread.current)] didFinishDownloadingTo \(location.absoluteString)")
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        print("[\(Thread.current)] Progress \(downloadTask.progress.fractionCompleted * 100)%")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
+        print("[\(Thread.current)] didCompleteWithError: \(error))")
+    }
 }

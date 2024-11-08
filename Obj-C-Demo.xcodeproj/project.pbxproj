@@ -60,7 +60,7 @@
 		EDC6E2B62C6A58FE009229FD /* web.html in Resources */ = {isa = PBXBuildFile; fileRef = EDC6E2B52C6A58FE009229FD /* web.html */; };
 		EDD371C32C5CC81800751F46 /* MyNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD371C22C5CC81800751F46 /* MyNotificationCenter.swift */; };
 		EDEAF0AB2C777B0300A2D5B1 /* NetworkAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */; };
-		EDEAF0B02C7780F400A2D5B1 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AF2C7780F400A2D5B1 /* NetworkViewController.swift */; };
+		EDEAF0B02C7780F400A2D5B1 /* NetworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */; };
 		EDF31F2C2C59C9A40098754D /* ObjcUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDF31F2B2C59C9A40098754D /* ObjcUtils.m */; };
 /* End PBXBuildFile section */
 
@@ -142,7 +142,7 @@
 		EDC6E2B52C6A58FE009229FD /* web.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = web.html; sourceTree = "<group>"; };
 		EDD371C22C5CC81800751F46 /* MyNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationCenter.swift; sourceTree = "<group>"; };
 		EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
-		EDEAF0AF2C7780F400A2D5B1 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
+		EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewController.swift; sourceTree = "<group>"; };
 		EDF31F2A2C59C9A40098754D /* ObjcUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcUtils.h; sourceTree = "<group>"; };
 		EDF31F2B2C59C9A40098754D /* ObjcUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,7 +209,7 @@
 				ED37417F2C3710C400C756AC /* RotationViewController.swift */,
 				ED3741812C3710E600C756AC /* MainNavigationController.swift */,
 				EDC6E2B32C6A5874009229FD /* WebViewController.swift */,
-				EDEAF0AF2C7780F400A2D5B1 /* NetworkViewController.swift */,
+				EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */,
 				ED5B95802C8F2D1200344BF1 /* CollectionViewController.swift */,
 				ED5B95822C8F447900344BF1 /* TableViewController.swift */,
 				ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */,
@@ -445,7 +445,7 @@
 				EDBDBC8F2BB3CD230078EA1A /* ThreadTableViewController.m in Sources */,
 				ED5B95812C8F2D1200344BF1 /* CollectionViewController.swift in Sources */,
 				EDB03C1F2BAEAA3F0038E82E /* MyHeavyObject.m in Sources */,
-				EDEAF0B02C7780F400A2D5B1 /* NetworkViewController.swift in Sources */,
+				EDEAF0B02C7780F400A2D5B1 /* NetworkTableViewController.swift in Sources */,
 				ED7A92902BC70DEF00ADAD81 /* ListTableViewController.swift in Sources */,
 				ED7A927F2BC1873D00ADAD81 /* Pair.m in Sources */,
 				EDB143932B87648600494CFB /* MyThread.swift in Sources */,

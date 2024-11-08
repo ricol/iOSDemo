@@ -19,42 +19,17 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource {
             return data.keys.sorted()
         }
     }
-    
+    enum LayoutType {
+        case flowlayout, composelayout
+    }
+    var layoutType = LayoutType.composelayout
     @IBOutlet weak var theCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Collection View Demo"
-        data = ["Liusisi": [(String.randomString(), Constants.liusisi[0]),
-                            (String.randomString(), Constants.liusisi[1]),
-                            (String.randomString(), Constants.liusisi[2]),
-                            (String.randomString(), Constants.liusisi[3]),
-                            (String.randomString(), Constants.liusisi[4])],
-                "Wang": [(String.randomString(), Constants.liusisi[5]),
-                                    (String.randomString(), Constants.liusisi[6]),
-                                    (String.randomString(), Constants.liusisi[0]),
-                                    (String.randomString(), Constants.liusisi[1]),
-                                    (String.randomString(), Constants.liusisi[2])]]
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 150, height: 150)
-        self.theCollectionView.collectionViewLayout = layout
-        
-        let provider = { (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                   heightDimension: .estimated(300))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [NSCollectionLayoutItem(layoutSize: groupSize)])
-            let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 10
-            return section
-        }
-        let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.interSectionSpacing = 20
-        let advancedLayout = UICollectionViewCompositionalLayout(sectionProvider: provider, configuration: config)
-//        self.theCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell_ID")
-        self.theCollectionView.collectionViewLayout = advancedLayout
-        self.theCollectionView.dataSource = self
-        self.theCollectionView.reloadData()
+        let btn = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(btnOnTapped))
+        self.navigationItem.rightBarButtonItem = btn
+        reload()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,4 +55,78 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource {
         }
         return UICollectionViewCell()
     }
+    
+    @objc private func btnOnTapped() {
+        layoutType = layoutType == .flowlayout ? .composelayout : .flowlayout
+        reload()
+    }
+    
+    private func reload() {
+        self.title = layoutType == .composelayout ? "Collection view with compositional layout" : "Collection View with flow layout"
+        data = ["Liusisi": [(String.randomString(), Constants.liusisi[0]),
+                            (String.randomString(), Constants.liusisi[1]),
+                            (String.randomString(), Constants.liusisi[2]),
+                            (String.randomString(), Constants.liusisi[3])],
+                "Wang": [(String.randomString(), Constants.liusisi[4]),
+                         (String.randomString(), Constants.liusisi[5]),
+                         (String.randomString(), Constants.liusisi[6]),
+                         (String.randomString(), Constants.liusisi[0]),
+                         (String.randomString(), Constants.liusisi[1]),
+                         (String.randomString(), Constants.liusisi[2])],
+                "Ricol": [(String.randomString(), Constants.liusisi[0])]]
+        
+        let provider = { (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(100),
+                                                   heightDimension: .absolute(100))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                   heightDimension: .absolute(100))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
+            let section = NSCollectionLayoutSection(group: group)
+            section.interGroupSpacing = 0 //no effect?
+            return section
+        }
+        let config = UICollectionViewCompositionalLayoutConfiguration()
+        config.interSectionSpacing = 50
+        let compositionalLayout = UICollectionViewCompositionalLayout(sectionProvider: provider, configuration: config)
+//        self.theCollectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell_ID")
+        
+        let flowLayout = UICollectionViewFlowLayout()
+//        flowLayout.itemSize = CGSize(width: 100, height: 100)
+//        flowLayout.estimatedItemSize = CGSize(width: 100, height: 100)
+        self.theCollectionView.collectionViewLayout = layoutType == .composelayout ? compositionalLayout : flowLayout
+        self.theCollectionView.dataSource = self
+        if layoutType == .flowlayout {
+            self.theCollectionView.delegate = self
+        }
+        self.theCollectionView.reloadData()
+    }
+}
+
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            
+            return UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
+        }
+        // Method 2
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+            
+            return 5
+        }
+        // Method 3
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+            
+            return 10
+        }
+        //Method 4
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            
+            let collectionViewWidth = collectionView.frame.width
+            let collectionViewHeight =  collectionView.frame.height
+            
+            let cellWidth = (collectionViewWidth - 30 ) / 3
+            let cellHeight = collectionViewHeight * 0.5
+            
+            return CGSize(width: cellWidth , height: cellHeight)
+            
+        }
 }

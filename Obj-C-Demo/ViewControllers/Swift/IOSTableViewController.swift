@@ -75,5 +75,4 @@ class StatusBarDemoViewController: UIViewController {
 }
 
 class IOSTableViewController: BaseTableViewController {
-
 }
