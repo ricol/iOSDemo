@@ -74,13 +74,18 @@ extension UIColor {
 }
 
 extension UIView {
+    func clearBG() {
+        self.backgroundColor = .clear
+        for v in subviews { v.clearBG() }
+    }
+    
     func randomBGColor() {
         self.backgroundColor = .randomColor()
         for v in self.subviews { v.randomBGColor() }
     }
     
-    func randomBorderColor() {
-        self.layer.borderWidth = 2
+    func randomBorderColor(width: CGFloat = 2) {
+        self.layer.borderWidth = width
         self.layer.borderColor = UIColor.randomColor().cgColor
         for v in self.subviews { v.randomBorderColor() }
     }
