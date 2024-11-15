@@ -150,6 +150,56 @@ class SwiftTableViewController: ListTableViewController {
         }
     }
     
+    @objc func testArchiveToFile() {
+        let ricol = Employee()
+        ricol.name = "ricol"
+        ricol.age = 40
+        ricol.gender = true
+        ricol.title = "ios programmer"
+        let wang = Employee()
+        wang.name = "wang"
+        wang.age = 40
+        wang.gender = true
+        wang.title = "android dev"
+        let nodus = Company()
+        nodus.name = "nodus"
+        nodus.address = "suzhou city"
+        nodus.workers = [ricol, wang]
+        if let doc = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let filepath = doc.appendingPathComponent("data.dat")
+            print("filepath: \(filepath.path)")
+            if NSKeyedArchiver.archiveRootObject(nodus, toFile: filepath.path) {
+                print("archive succeed.")
+            }else {
+                print("archive failed!")
+            }
+        }
+    }
+    
+    @objc func testUnArchiveFromFile() {
+        if let doc = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let filepath = doc.appendingPathComponent("data.dat")
+            print("filepath: \(filepath.path)")
+            if FileManager.default.fileExists(atPath: filepath.path) {
+                do {
+//                    let data = try Data(contentsOf: filepath)
+                    let data = try? NSKeyedUnarchiver.unarchiveObject(withFile: filepath.path)
+                    print("unarchive succeed.")
+                    if let nodus = data as? Company {
+                        nodus.action()
+                    }else {
+                        print("failed to convert to Company!")
+                    }
+                }
+                catch (let e) {
+                    print("exception: \(e)")
+                }
+            }else {
+                print("file doesn't exist.")
+            }
+        }
+    }
+    
     @objc private func timer() {
         print("[\(Date())]timer...")
     }
