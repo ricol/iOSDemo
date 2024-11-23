@@ -8,14 +8,6 @@
 import Foundation
 import SwiftUI
 
-class SwiftUIViewController: ListTableViewController {
-    
-    @objc func testSwiftUI() {
-        let hosting = UIHostingController(rootView: SwiftUIMainView())
-        self.navigationController?.pushViewController(hosting, animated: true)
-    }
-}
-
 struct SwiftUIMainView: View {
     var body: some View {
         List {
@@ -29,7 +21,10 @@ struct SwiftUIMainView: View {
                 }
                 
                 NavigationLink {
-                    Text("Show Navigation Bar and no back button")
+                    VStack {
+                        Text("Show Navigation Bar and no back button")
+                        CustomBackButton()
+                    }
                         .navigationBarVisible()
                         .navigationBarBackButtonHidden()
                 } label: {
@@ -37,7 +32,10 @@ struct SwiftUIMainView: View {
                 }
                 
                 NavigationLink {
-                    Text("Hide Navigation Bar and no back button")
+                    VStack {
+                        Text("Hide Navigation Bar and no back button")
+                        CustomBackButton()
+                    }
                         .navigationBarVisible(false)
                         .navigationBarBackButtonHidden()
                 } label: {
@@ -45,7 +43,10 @@ struct SwiftUIMainView: View {
                 }
                 
                 NavigationLink {
-                    Text("Hide Navigation Bar and no back button")
+                    VStack {
+                        Text("Hide Navigation Bar and no back button")
+                        CustomBackButton()
+                    }
                         .navigationBarVisible(false)
                         .navigationBarBackButtonHidden()
                 } label: {
@@ -54,7 +55,7 @@ struct SwiftUIMainView: View {
             }
             Section("Customize") {
                 NavigationLink {
-                    CustomBackButtonView()
+                    CustomBackNavigationButton()
                 } label: {
                     Text("Show Navigation Bar and back button")
                 }
@@ -63,7 +64,7 @@ struct SwiftUIMainView: View {
     }
 }
 
-struct CustomBackButtonView: View {
+struct CustomBackNavigationButton: View {
     @Environment(\.dismiss) var dismiss
     var body: some View {
         Text("Show Navigation Bar and custom back button")
@@ -82,6 +83,13 @@ struct CustomBackButtonView: View {
             .navigationBarBackButtonHidden()
             .navigationBarVisible()
             .navigationTitle("Custom Back")
+    }
+}
+
+struct CustomBackButton: View {
+    @Environment(\.dismiss) var dismiss
+    var body: some View {
+        Button("Back") { dismiss() }
     }
 }
 

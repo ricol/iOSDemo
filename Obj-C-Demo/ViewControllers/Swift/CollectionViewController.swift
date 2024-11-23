@@ -199,25 +199,49 @@ class CollectionViewController: BaseViewController {
                 
             }else {
                 let provider = { (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-                    let height: CGFloat = 300
+                    if sectionIndex == self.sections.count - 1 {
+                        let itemsByRow: CGFloat = 3
+                        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(self.theCollectionView.bounds.width / itemsByRow),
+                                                               heightDimension: .estimated(300))
+                        let item = NSCollectionLayoutItem(layoutSize: groupSize)
+
+                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                        let section = NSCollectionLayoutSection(group: group)
+                        section.orthogonalScrollingBehavior = .groupPagingCentered
+                        
+                        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                                heightDimension: .estimated(300))
+                        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+                        section.boundarySupplementaryItems = [sectionHeader]
+                        return section
+                    }
+                    
+                    var height: CGFloat = 300
                     let width: CGFloat = 200
+                    let values = self.data[self.sections[sectionIndex]]
+                    var maxHeight: CGFloat = 0
+                    for (text, _) in values ?? [] {
+                        let height = text.calculateHeightFor(width: width, font: .systemFont(ofSize: 17))
+                        maxHeight = max(height, maxHeight)
+                    }
+                    height = maxHeight
                     
                     let item = NSCollectionLayoutItem(layoutSize:
                                                         NSCollectionLayoutSize(widthDimension: .absolute(width),
-                                                                               heightDimension: .absolute(height)))
+                                                                               heightDimension: .fractionalHeight(1.0)))
                     let group = NSCollectionLayoutGroup.horizontal(layoutSize:
                                                                     NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                                           heightDimension: .absolute(height)),
+                                                                                           heightDimension: .estimated(height)),
                                                                    subitems: [item])
-                    let groupHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(50)), elementKind: "GroupHeaderView", alignment: .bottom)
-                    let groupHeaderAlternative = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(50)), elementKind: "GroupHeaderViewAlternative", alignment: .trailing)
-                    group.supplementaryItems = [groupHeader, groupHeaderAlternative]
+//                    let groupHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(50)), elementKind: "GroupHeaderView", alignment: .bottom)
+//                    let groupHeaderAlternative = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .absolute(width), heightDimension: .absolute(50)), elementKind: "GroupHeaderViewAlternative", alignment: .trailing)
+//                    group.supplementaryItems = [groupHeader, groupHeaderAlternative]
                     
                     let section = NSCollectionLayoutSection(group: group)
                     section.interGroupSpacing = 0 //no effect?
                     let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .estimated(width), heightDimension: .absolute(50)), elementKind: "SectionHeaderView", alignment: .top)
                     section.boundarySupplementaryItems = [sectionHeader]
-        //            section.contentInsets = NSDirectionalEdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 50)
+                    //            section.contentInsets = NSDirectionalEdgeInsets(top: 50, leading: 50, bottom: 50, trailing: 50)
                     return section
                 }
                 let config = UICollectionViewCompositionalLayoutConfiguration()
@@ -260,6 +284,7 @@ extension CollectionViewController: UICollectionViewDataSource {
             if s < sections.count, let value = data[sections[s]], r < value.count {
                 let row = value[r]
                 cell.clearBG()
+                cell.theTitle.font = .systemFont(ofSize: 17)
                 cell.theTitle.text = row.0
                 cell.theTitle.textColor = .black
                 cell.viewBG.backgroundColor = row.1 != nil ? .red : .blue
