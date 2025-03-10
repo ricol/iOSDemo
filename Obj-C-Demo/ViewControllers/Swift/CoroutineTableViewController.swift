@@ -697,6 +697,146 @@ class CoroutineTableViewController: ListTableViewController {
             self.task?.cancel()
         })
     }
+    
+    @objc func testDispatchGroup() {
+        /*
+        func functionC(completion: @escaping (String) -> Void) {
+            // Simulate an async task
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                completion("Result from C")
+            }
+        }
+
+        func functionA(dependency: String, completion: @escaping () -> Void) {
+            // Simulate an async task that depends on the result of C
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                print("Function A received: \(dependency)")
+                completion()
+            }
+        }
+
+        func functionB(dependency: String, completion: @escaping () -> Void) {
+            // Simulate an async task that depends on the result of C
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                print("Function B received: \(dependency)")
+                completion()
+            }
+        }
+
+        let dispatchGroup = DispatchGroup()
+
+        dispatchGroup.enter()
+        var resultFromC: String?
+
+        functionC { result in
+            resultFromC = result
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            guard let result = resultFromC else { return }
+            
+            let group = DispatchGroup()
+
+            group.enter()
+            functionA(dependency: result) {
+                group.leave()
+            }
+
+            group.enter()
+            functionB(dependency: result) {
+                group.leave()
+            }
+
+            group.notify(queue: .main) {
+                print("Both A and B have finished")
+            }
+        }
+
+        print("Waiting for tasks to complete...")
+*/
+        
+        class TaskManager {
+            static let shared = TaskManager()
+            private var resultFromC: String?
+            private var isCRunning = false
+            private let lock = NSLock()
+            private let dispatchGroup = DispatchGroup()
+            
+            private init() {}
+            
+            func functionC(completion: @escaping (String) -> Void) {
+                lock.lock()
+                if let result = resultFromC {
+                    lock.unlock()
+                    completion(result)
+                    return
+                }
+                
+                if isCRunning {
+                    dispatchGroup.notify(queue: .main) {
+                        if let result = self.resultFromC {
+                            completion(result)
+                        }
+                    }
+                    lock.unlock()
+                    return
+                }
+                
+                isCRunning = true
+                lock.unlock()
+                dispatchGroup.enter()
+                
+                // Simulate an async task
+                DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                    print("func c set result...")
+                    let result = "Result from C"
+                    self.lock.lock()
+                    self.resultFromC = result
+                    self.isCRunning = false
+                    self.lock.unlock()
+                    self.dispatchGroup.leave()
+                    completion(result)
+                }
+            }
+            
+            func functionA(completion: @escaping () -> Void) {
+                print("func A start...")
+                functionC { result in
+                    // Simulate an async task that depends on the result of C
+                    DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                        print("Function A received: \(result)")
+                        completion()
+                    }
+                }
+                print("func A end.")
+            }
+            
+            func functionB(completion: @escaping () -> Void) {
+                print("func B start...")
+                functionC { result in
+                    // Simulate an async task that depends on the result of C
+                    DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                        print("Function B received: \(result)")
+                        completion()
+                    }
+                }
+                print("func B end.")
+            }
+        }
+
+        // Example usage
+        TaskManager.shared.functionA {
+            print("Function A completed")
+        }
+
+        TaskManager.shared.functionB {
+            print("Function B completed")
+        }
+
+        print("Waiting for tasks to complete...")
+
+    }
 }
 
 struct Count {

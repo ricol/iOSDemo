@@ -18,6 +18,19 @@
 #import "NSTimer+MyTimerBlockSupport.h"
 #import "ObjcUtils.h"
 
+@interface MyString : NSObject
+
+@property (copy) NSMutableString *strWithCopy;
+@property (strong) NSMutableString *strWithStrong;
+@property (retain) NSMutableString *strWithRetain;
+
+@end
+
+@implementation MyString
+
+
+@end
+
 @interface ObjectiveCTableViewController ()
 
 @property (strong) MyClassForKVO *o;
@@ -259,4 +272,95 @@
     [c testNotificationQueue];
 }
 
+- (void)testPropertyAttributes {
+    {
+        NSLog(@"test 1...");
+        MyString *str = [MyString new];
+        NSMutableString *originalStringForCopy = [@"wanxingheForCopy" mutableCopy];
+        NSMutableString *originalStringForStrong = [@"wanxingheForStrong" mutableCopy];
+        NSMutableString *originalStringForRetain = [@"wanxingheForRetain" mutableCopy];
+        str.strWithCopy = originalStringForCopy;
+        str.strWithStrong = originalStringForStrong;
+        str.strWithRetain = originalStringForRetain;
+        
+        @try {
+            NSLog(@"originalStringForCopy: %@", originalStringForCopy);
+            NSLog(@"changing in object...");
+            [str.strWithCopy appendString:@" updated"];
+            NSLog(@"originalStringForCopy: %@", originalStringForCopy);
+            NSLog(@"str.strWithCopy: %@", str.strWithCopy);
+        } @catch (NSException *exception) {
+            NSLog(@"Exception1: %@", exception);
+        } @finally {
+        }
+        
+        @try {
+            NSLog(@"originalStringForStrong: %@", originalStringForStrong);
+            NSLog(@"changing in object...");
+            [str.strWithStrong appendString:@" updated"];
+            NSLog(@"originalStringForStrong: %@", originalStringForStrong);
+            NSLog(@"str.strWithStrong: %@", str.strWithStrong);
+        } @catch (NSException *exception) {
+            NSLog(@"Exception2: %@", exception);
+        } @finally {
+        }
+        
+        @try {
+            NSLog(@"originalStringForRetain: %@", originalStringForRetain);
+            NSLog(@"changing in object...");
+            [str.strWithRetain appendString:@" updated"];
+            NSLog(@"originalStringForRetain: %@", originalStringForRetain);
+            NSLog(@"str.strWithRetain: %@", str.strWithRetain);
+        } @catch (NSException *exception) {
+            NSLog(@"Exception3: %@", exception);
+        } @finally {
+        }
+    }
+    
+    {
+        NSLog(@"test 2...");
+        MyString *str = [MyString new];
+        NSMutableString *originalStringForCopy = [@"wanxingheForCopy" mutableCopy];
+        NSMutableString *originalStringForStrong = [@"wanxingheForStrong" mutableCopy];
+        NSMutableString *originalStringForRetain = [@"wanxingheForRetain" mutableCopy];
+        str.strWithCopy = originalStringForCopy;
+        str.strWithStrong = originalStringForStrong;
+        str.strWithRetain = originalStringForRetain;
+        
+        @try {
+            NSLog(@"originalStringForCopy: %@", originalStringForCopy);
+            NSLog(@"changing in originalStringForCopy...");
+            [originalStringForCopy appendString:@" updated"];
+            NSLog(@"originalStringForCopy: %@", originalStringForCopy);
+            NSLog(@"str.strWithCopy: %@", str.strWithCopy);
+        } @catch (NSException *exception) {
+            NSLog(@"Exception1: %@", exception);
+        } @finally {
+        }
+        
+        @try {
+            NSLog(@"originalStringForStrong: %@", originalStringForStrong);
+            NSLog(@"changing in originalStringForStrong...");
+            [originalStringForStrong appendString:@" updated"];
+            NSLog(@"originalStringForStrong: %@", originalStringForStrong);
+            NSLog(@"str.strWithStrong: %@", str.strWithStrong);
+        } @catch (NSException *exception) {
+            NSLog(@"Exception2: %@", exception);
+        } @finally {
+        }
+        
+        @try {
+            NSLog(@"originalStringForRetain: %@", originalStringForRetain);
+            NSLog(@"changing in originalStringForRetain...");
+            [originalStringForRetain appendString:@" updated"];
+            NSLog(@"originalStringForRetain: %@", originalStringForRetain);
+            NSLog(@"str.strWithRetain: %@", str.strWithRetain);
+        } @catch (NSException *exception) {
+            NSLog(@"Exception3: %@", exception);
+        } @finally {
+        }
+    }
+}
+
 @end
+
