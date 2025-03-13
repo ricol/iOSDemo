@@ -12,11 +12,18 @@ class CombineFrameworDemoViewController: BaseTableViewController {
     class CombineDemo {
         let btn: UIButton = UIButton()
         let lbl: UILabel = UILabel()
+        let o = Object()
+        class Object {
+            var text: String = ""
+            var flag: Bool = false
+        }
         @Published var flag: Bool = false {
             didSet {
                 print("didSet...expecting \(flag)")
                 print("btn.isEnabled: \(btn.isEnabled)")
                 print("lbl.text: \(lbl.text)")
+                print("o.text: \(o.text)")
+                print("o.flag: \(o.flag)")
             }
         }
     }
@@ -30,6 +37,10 @@ class CombineFrameworDemoViewController: BaseTableViewController {
         c.$flag.receive(on: DispatchQueue.main).map({ output in
             "\(output)"
         }).assign(to: \.text, on: c.lbl).store(in: &cancellables)
+        c.$flag.receive(on: DispatchQueue.main).assign(to: \.flag, on: c.o).store(in: &cancellables)
+        c.$flag.receive(on: DispatchQueue.main).map { output in
+            "\(output)"
+        }.assign(to: \.text, on: c.o).store(in: &cancellables)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -73,6 +84,8 @@ class CombineFrameworDemoViewController: BaseTableViewController {
             print("after 1 second...expecting \(self.c.flag)")
             print("btn.isEnabled: \(self.c.btn.isEnabled)")
             print("lbl.text: \(String(describing: self.c.lbl.text))")
+            print("object.text: \(self.c.o.text)")
+            print("object.flag: \(self.c.o.flag)")
         }
         
         delay {
