@@ -58,6 +58,7 @@
 		EDC6E2B42C6A5874009229FD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC6E2B32C6A5874009229FD /* WebViewController.swift */; };
 		EDC6E2B62C6A58FE009229FD /* web.html in Resources */ = {isa = PBXBuildFile; fileRef = EDC6E2B52C6A58FE009229FD /* web.html */; };
 		EDD371C32C5CC81800751F46 /* MyNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD371C22C5CC81800751F46 /* MyNotificationCenter.swift */; };
+		EDE2654B2D82B9D600B74D6B /* CombineFrameworDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE2654A2D82B9C100B74D6B /* CombineFrameworDemoViewController.swift */; };
 		EDEAF0AB2C777B0300A2D5B1 /* NetworkAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */; };
 		EDEAF0B02C7780F400A2D5B1 /* NetworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */; };
 		EDF31F2C2C59C9A40098754D /* ObjcUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDF31F2B2C59C9A40098754D /* ObjcUtils.m */; };
@@ -141,6 +142,7 @@
 		EDC6E2B32C6A5874009229FD /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		EDC6E2B52C6A58FE009229FD /* web.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = web.html; sourceTree = "<group>"; };
 		EDD371C22C5CC81800751F46 /* MyNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationCenter.swift; sourceTree = "<group>"; };
+		EDE2654A2D82B9C100B74D6B /* CombineFrameworDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineFrameworDemoViewController.swift; sourceTree = "<group>"; };
 		EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
 		EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewController.swift; sourceTree = "<group>"; };
 		EDF31F2A2C59C9A40098754D /* ObjcUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcUtils.h; sourceTree = "<group>"; };
@@ -192,7 +194,8 @@
 		ED7A92892BC25DE900ADAD81 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				EDF371FF2CF1A5A90085A5BC /* SwiftUI */,
+				EDF371FD2CF1A58E0085A5BC /* SwiftUIMainView.swift */,
+				EDE2654A2D82B9C100B74D6B /* CombineFrameworDemoViewController.swift */,
 				EDF372002CF1A5FF0085A5BC /* StatusBarDemoViewController.swift */,
 				EDB143A32B8B136800494CFB /* BaseViewController.swift */,
 				ED7A928F2BC70DEF00ADAD81 /* ListTableViewController.swift */,
@@ -327,14 +330,6 @@
 			path = storyboards;
 			sourceTree = "<group>";
 		};
-		EDF371FF2CF1A5A90085A5BC /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				EDF371FD2CF1A58E0085A5BC /* SwiftUIMainView.swift */,
-			);
-			path = SwiftUI;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -418,6 +413,7 @@
 				EDB03C222BAF467F0038E82E /* MyOperation.m in Sources */,
 				EDB143B02B8B16B100494CFB /* MyTimerProxy.m in Sources */,
 				ED6FAC442BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.m in Sources */,
+				EDE2654B2D82B9D600B74D6B /* CombineFrameworDemoViewController.swift in Sources */,
 				EDB1432E2B7B207400494CFB /* Person.m in Sources */,
 				ED5B95832C8F447900344BF1 /* TableViewController.swift in Sources */,
 				EDB1438D2B86131000494CFB /* Pet.m in Sources */,

@@ -211,23 +211,6 @@ class SwiftTableViewController: ListTableViewController {
         
     }
     
-    @objc func testCombine() {
-        var count = 0
-        Timer.publish(every: 1, on: RunLoop.main, in: .common).autoconnect().sink { complete in
-            print("complete: \(complete)")
-        } receiveValue: { output in
-            print("output: \(output), count: \(count)")
-            count += 1
-            if count > 10 {
-                self.store.forEach { any in
-                    any.cancel()
-                }
-            }
-        }.store(in: &store)
-    }
-    
-    var store = Set<AnyCancellable>()
-    
     @objc func testNavigation() {
         
     }
