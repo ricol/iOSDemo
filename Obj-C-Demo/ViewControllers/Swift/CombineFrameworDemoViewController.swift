@@ -9,38 +9,38 @@ import UIKit
 import Combine
 
 class CombineFrameworDemoViewController: BaseTableViewController {
-    class CombineDemo {
+    class ViewModel {
         let btn: UIButton = UIButton()
         let lbl: UILabel = UILabel()
-        let o = Object()
+        let object = Object()
         class Object {
             var text: String = ""
             var flag: Bool = false
         }
         @Published var flag: Bool = false {
             didSet {
-                print("didSet...expecting \(flag)")
-                print("btn.isEnabled: \(btn.isEnabled)")
-                print("lbl.text: \(lbl.text)")
-                print("o.text: \(o.text)")
-                print("o.flag: \(o.flag)")
+                print("[didSet] expecting \(flag).....")
+                print("btn.isEnabled: \(btn.isEnabled) -> \(btn.isEnabled == flag ? "pass" : "fail")")
+                print("lbl.text: \(lbl.text) -> \(lbl.text == "\(flag)" ? "pass" : "fail")")
+                print("object.text: \(object.text) -> \(object.text == "\(flag)" ? "pass" : "fail")")
+                print("object.flag: \(object.flag) -> \(object.flag == flag ? "pass" : "fail")")
             }
         }
     }
     
     var cancellables: [AnyCancellable] = []
-    let c = CombineDemo()
+    let vm = ViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        c.$flag.receive(on: DispatchQueue.main).assign(to: \.isEnabled, on: c.btn).store(in: &cancellables)
-        c.$flag.receive(on: DispatchQueue.main).map({ output in
+        vm.$flag.receive(on: DispatchQueue.main).assign(to: \.isEnabled, on: vm.btn).store(in: &cancellables)
+        vm.$flag.receive(on: DispatchQueue.main).map({ output in
             "\(output)"
-        }).assign(to: \.text, on: c.lbl).store(in: &cancellables)
-        c.$flag.receive(on: DispatchQueue.main).assign(to: \.flag, on: c.o).store(in: &cancellables)
-        c.$flag.receive(on: DispatchQueue.main).map { output in
+        }).assign(to: \.text, on: vm.lbl).store(in: &cancellables)
+        vm.$flag.receive(on: DispatchQueue.main).assign(to: \.flag, on: vm.object).store(in: &cancellables)
+        vm.$flag.receive(on: DispatchQueue.main).map { output in
             "\(output)"
-        }.assign(to: \.text, on: c.o).store(in: &cancellables)
+        }.assign(to: \.text, on: vm.object).store(in: &cancellables)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -59,19 +59,19 @@ class CombineFrameworDemoViewController: BaseTableViewController {
     @objc func testNotificationWithExplicitSubscribers() {
         NotificationCenter.default.publisher(for: .myNotif).map { notif in
             notif.object as? String
-        }.subscribe(Subscribers.Assign(object: c.lbl, keyPath: \.text))
+        }.subscribe(Subscribers.Assign(object: vm.lbl, keyPath: \.text))
         print("posting notification...")
         NotificationCenter.default.post(name: .myNotif, object: "Test combine framework in Notification with explicit Subscriber")
-        print("lbl text: \(String(describing: c.lbl.text))")
+        print("lbl text: \(String(describing: vm.lbl.text))")
     }
     
     @objc func testNotificationWithAssign() {
         NotificationCenter.default.publisher(for: .myNotif).map { notif in
             notif.object as? String
-        }.assign(to: \.text, on: c.lbl).store(in: &cancellables)
+        }.assign(to: \.text, on: vm.lbl).store(in: &cancellables)
         print("posting notification...")
         NotificationCenter.default.post(name: .myNotif, object: "Test combine framework in Notification with assign")
-        print("lbl text: \(String(describing: c.lbl.text))")
+        print("lbl text: \(String(describing: vm.lbl.text))")
     }
 
     @objc func testPublisher() {
@@ -81,25 +81,25 @@ class CombineFrameworDemoViewController: BaseTableViewController {
             }))
         }
         func show() {
-            print("after 1 second...expecting \(self.c.flag)")
-            print("btn.isEnabled: \(self.c.btn.isEnabled)")
-            print("lbl.text: \(String(describing: self.c.lbl.text))")
-            print("object.text: \(self.c.o.text)")
-            print("object.flag: \(self.c.o.flag)")
+            print("[after 1 second] expecting \(self.vm.flag)......")
+            print("btn.isEnabled: \(self.vm.btn.isEnabled) -> \(self.vm.btn.isEnabled == self.vm.flag ? "pass": "fail")")
+            print("lbl.text: \(String(describing: self.vm.lbl.text)) -> \(self.vm.lbl.text == "\(self.vm.flag)" ? "pass" : "fail")")
+            print("object.text: \(self.vm.object.text) -> \(self.vm.object.text == "\(self.vm.flag)" ? "pass" : "fail")")
+            print("object.flag: \(self.vm.object.flag) -> \(self.vm.object.flag == self.vm.flag ? "pass" : "fail")")
         }
         
         delay {
-            self.c.flag.toggle()
+            self.vm.flag.toggle()
             delay {
                 show()
                 delay {
-                    self.c.flag.toggle()
+                    self.vm.flag.toggle()
                     delay {
                         show()
-                        self.c.flag = true
+                        self.vm.flag = true
                         delay {
                             show()
-                            self.c.flag = false
+                            self.vm.flag = false
                             delay {
                                 show()
                             }
