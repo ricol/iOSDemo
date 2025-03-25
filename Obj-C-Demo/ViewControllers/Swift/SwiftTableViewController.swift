@@ -214,6 +214,37 @@ class SwiftTableViewController: ListTableViewController {
     @objc func testNavigation() {
         
     }
+    
+    @objc func testModelConvert() {
+        let p = Person(name: "ricolwang", age: 42, gender: .male)
+        do {
+            let data = try JSONEncoder().encode(p)
+            print("JSONEncoder to encode a object -> data: \(data)")
+            let json = try JSONSerialization.jsonObject(with: data)
+            print("JSONSerialization.jsonObject to parse data to json: \(json)")
+            let object = try JSONDecoder().decode(Person.self, from: data)
+            print("JSONDecoder to decode data -> object: \(object)")
+            if let jsondata = p.toJSONData {
+                print("object to jsonData -> \(jsondata)")
+            }
+            let dict = p.toStringDictionary
+            print("object to dictionary -> \(dict)")
+            let map = p.dictionaryRepresentation
+            print("object dictionaryRepresentation: \(map)")
+        } catch {
+            print("error: \(error)")
+        }
+    }
+}
+
+struct Person: Codable {
+    enum Gender: Codable {
+        case male, female
+    }
+    
+    let name: String
+    let age: Int
+    let gender: Gender
 }
 
 class Entity: NSObject, NSCoding {
@@ -363,5 +394,64 @@ class MyFullPerson: NSObject, NSSecureCoding {
     var pets = [MyFullPerson]()
     func action() {
         print("\(name)...with pets: \(pets)")
+    }
+}
+
+public extension Optional {
+    var toJSONData: Data? {
+        if let val = self as? Encodable {
+            return val.toJSONData
+        }
+        return nil
+    }
+
+    var dictionaryRepresentation: [String: Any]? {
+        if let val = self as? Encodable {
+            return val.dictionaryRepresentation
+        }
+        return nil
+    }
+
+    var toStringDictionary: [String: String]? {
+        if let val = self as? Encodable {
+            return val.toStringDictionary
+        }
+        return nil
+    }
+}
+
+public extension Encodable {
+    var toJSONData: Data? {
+        do {
+            return try JSONEncoder().encode(self)
+        } catch {
+            assertionFailure("HTTP request parameter encode error: \(error)")
+        }
+        return nil
+    }
+
+    var toStringDictionary: [String: String] {
+        dictionaryRepresentation.mapValues { value -> String in
+            if type(of: value) == type(of: NSNumber(value: true)) {
+                return String(value as! Bool)
+            } else {
+                return "\(value)"
+            }
+        }
+    }
+
+    var dictionaryRepresentation: [String: Any] {
+        guard let jsonData = toJSONData else { return [:] }
+
+        do {
+            guard let dictionary = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] else {
+                return [:]
+            }
+            return dictionary
+        } catch {
+            assertionFailure("Invalid JSON data with error:\(error)")
+        }
+
+        return [:]
     }
 }
