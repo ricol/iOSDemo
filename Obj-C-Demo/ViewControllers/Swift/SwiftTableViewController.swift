@@ -204,7 +204,22 @@ class SwiftTableViewController: ListTableViewController {
         print("[\(Date())]timer...")
     }
     
-    @objc private func testOthers() {
+    @objc private func testMacros() {
+        print("#file: \(#file)")
+        print("#line: \(#line)")
+        print("#column: \(#column)")
+        print("#function: \(#function)")
+        print("#dsohandle: \(#dsohandle)")
+        
+        func testFunc() {
+            print("#file: \(#file)")
+            print("#line: \(#line)")
+            print("#column: \(#column)")
+            print("#function: \(#function)")
+            print("#dsohandle: \(#dsohandle)")
+        }
+        
+        testFunc()
     }
     
     @objc private func testSwiftUI() {

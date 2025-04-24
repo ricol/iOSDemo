@@ -14,6 +14,7 @@
 		ED4353C72BCCCB5100422351 /* ObjCRuntimeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4353C62BCCCB5100422351 /* ObjCRuntimeTableViewController.m */; };
 		ED494D2B2CA67A8C008A0B74 /* IOSTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */; };
 		ED52866C2B9776EB00B8D534 /* MyObjcThread.m in Sources */ = {isa = PBXBuildFile; fileRef = ED52866B2B9776EB00B8D534 /* MyObjcThread.m */; };
+		ED5A8C2A2DBA0F5A0023393C /* ObjectCRunTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A8C292DBA0F4B0023393C /* ObjectCRunTimeViewController.swift */; };
 		ED5B95812C8F2D1200344BF1 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B95802C8F2D1200344BF1 /* CollectionViewController.swift */; };
 		ED5B95832C8F447900344BF1 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B95822C8F447900344BF1 /* TableViewController.swift */; };
 		ED5B95852C900F3100344BF1 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED5B95842C900F3100344BF1 /* CollectionViewCell.xib */; };
@@ -76,6 +77,7 @@
 		ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSTableViewController.swift; sourceTree = "<group>"; };
 		ED52866A2B9776EB00B8D534 /* MyObjcThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyObjcThread.h; sourceTree = "<group>"; };
 		ED52866B2B9776EB00B8D534 /* MyObjcThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyObjcThread.m; sourceTree = "<group>"; };
+		ED5A8C292DBA0F4B0023393C /* ObjectCRunTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCRunTimeViewController.swift; sourceTree = "<group>"; };
 		ED5B95802C8F2D1200344BF1 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		ED5B95822C8F447900344BF1 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		ED5B95842C900F3100344BF1 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		ED7A92892BC25DE900ADAD81 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				ED5A8C292DBA0F4B0023393C /* ObjectCRunTimeViewController.swift */,
 				EDF371FD2CF1A58E0085A5BC /* SwiftUIMainView.swift */,
 				EDE2654A2D82B9C100B74D6B /* CombineFrameworDemoViewController.swift */,
 				EDF372002CF1A5FF0085A5BC /* StatusBarDemoViewController.swift */,
@@ -440,6 +443,7 @@
 				EDD371C32C5CC81800751F46 /* MyNotificationCenter.swift in Sources */,
 				EDA9B3832C98134500ED35D9 /* ImageTitleTableViewCell.swift in Sources */,
 				EDB03C1C2BAE96100038E82E /* ObjectiveCTableViewController.m in Sources */,
+				ED5A8C2A2DBA0F5A0023393C /* ObjectCRunTimeViewController.swift in Sources */,
 				ED7A92932BC70E5200ADAD81 /* ObjCListTableViewController.m in Sources */,
 				ED3741822C3710E600C756AC /* MainNavigationController.swift in Sources */,
 				EDBDBC8F2BB3CD230078EA1A /* ThreadTableViewController.m in Sources */,
@@ -607,7 +611,7 @@
 				DEVELOPMENT_TEAM = 7UGQE8DF6B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Obj-C-Demo/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = DemoTest4;
+				INFOPLIST_KEY_CFBundleDisplayName = "Objc-C-Demo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -619,7 +623,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rmit.app.demo.test4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rmit.app.demo.objCDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Obj-C-Demo/Obj-C-Demo-Bridging-Header.h";
@@ -640,7 +644,7 @@
 				DEVELOPMENT_TEAM = 7UGQE8DF6B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Obj-C-Demo/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = DemoTest4;
+				INFOPLIST_KEY_CFBundleDisplayName = "Objc-C-Demo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -652,7 +656,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rmit.app.demo.test4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rmit.app.demo.objCDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Obj-C-Demo/Obj-C-Demo-Bridging-Header.h";

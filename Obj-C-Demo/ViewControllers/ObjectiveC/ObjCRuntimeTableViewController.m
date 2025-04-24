@@ -13,4 +13,16 @@
 
 @implementation ObjCRuntimeTableViewController
 
+- (void)testInstanceMethod {
+    NSLog(@"testInstanceMethod...");
+}
+
+- (void)testClassMethod {
+    NSLog(@"testClassMethod...");
+}
+
+- (void)testMethodExchange {
+    NSLog(@"testMethodExchange...");
+}
+
 @end
