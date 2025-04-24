@@ -7,11 +7,21 @@
 
 class ObjectCRunTimeViewController: ListTableViewController {
     @objc func testInstanceMethod() {
-        
+        if let method = NSObject.instanceMethod(for: #selector(testMethodExchange1)) {
+            print(method)
+        }
+        if let method = method(for: #selector(testMethodExchange1)) {
+            print(method)
+        }
+    }
+    
+    @objc static func staticMethod() {
     }
     
     @objc func testClassMethod() {
-        
+        if let method = class_getClassMethod(ObjectCRunTimeViewController.self, #selector(ObjectCRunTimeViewController.staticMethod)) {
+            print(method)
+        }
     }
     
     @objc func testMethodExchange1() {
