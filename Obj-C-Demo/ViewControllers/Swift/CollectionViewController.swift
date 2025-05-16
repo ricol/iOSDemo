@@ -198,10 +198,11 @@ class CollectionViewController: BaseViewController {
             if let _ = self.theCollectionView.collectionViewLayout as? UICollectionViewCompositionalLayout {
                 
             }else {
+                unowned let unownedSelf = self
                 let provider = { (sectionIndex: Int, _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-                    if sectionIndex == self.sections.count - 1 {
+                    if sectionIndex == unownedSelf.sections.count - 1 {
                         let itemsByRow: CGFloat = 3
-                        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(self.theCollectionView.bounds.width / itemsByRow),
+                        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(unownedSelf.theCollectionView.bounds.width / itemsByRow),
                                                                heightDimension: .estimated(300))
                         let item = NSCollectionLayoutItem(layoutSize: groupSize)
 
@@ -218,7 +219,7 @@ class CollectionViewController: BaseViewController {
                     
                     var height: CGFloat = 300
                     let width: CGFloat = 200
-                    let values = self.data[self.sections[sectionIndex]]
+                    let values = unownedSelf.data[unownedSelf.sections[sectionIndex]]
                     var maxHeight: CGFloat = 0
                     for (text, _) in values ?? [] {
                         let height = text.calculateHeightFor(width: width, font: .systemFont(ofSize: 17))

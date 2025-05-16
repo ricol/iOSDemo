@@ -30,6 +30,7 @@
 		ED7A92932BC70E5200ADAD81 /* ObjCListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7A92922BC70E5200ADAD81 /* ObjCListTableViewController.m */; };
 		ED837F682C6F0729008416D6 /* background.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = ED837F652C6F0620008416D6 /* background.mp4 */; };
 		ED881E542C4F8EF900C42C9C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED881E532C4F8EF900C42C9C /* Constants.swift */; };
+		ED8E9EDC2DD645B600814DAA /* DiffableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8E9EDB2DD645AA00814DAA /* DiffableCollectionViewController.swift */; };
 		EDA9B3832C98134500ED35D9 /* ImageTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9B3812C98134500ED35D9 /* ImageTitleTableViewCell.swift */; };
 		EDA9B3842C98134500ED35D9 /* ImageTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDA9B3822C98134500ED35D9 /* ImageTitleTableViewCell.xib */; };
 		EDB03C1C2BAE96100038E82E /* ObjectiveCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB03C1B2BAE96100038E82E /* ObjectiveCTableViewController.m */; };
@@ -98,6 +99,7 @@
 		ED7A92922BC70E5200ADAD81 /* ObjCListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCListTableViewController.m; sourceTree = "<group>"; };
 		ED837F652C6F0620008416D6 /* background.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.mp4; sourceTree = "<group>"; };
 		ED881E532C4F8EF900C42C9C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ED8E9EDB2DD645AA00814DAA /* DiffableCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableCollectionViewController.swift; sourceTree = "<group>"; };
 		EDA9B3812C98134500ED35D9 /* ImageTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTitleTableViewCell.swift; sourceTree = "<group>"; };
 		EDA9B3822C98134500ED35D9 /* ImageTitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageTitleTableViewCell.xib; sourceTree = "<group>"; };
 		EDB03C1A2BAE96100038E82E /* ObjectiveCTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveCTableViewController.h; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				EDC6E2B32C6A5874009229FD /* WebViewController.swift */,
 				EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */,
 				ED5B95802C8F2D1200344BF1 /* CollectionViewController.swift */,
+				ED8E9EDB2DD645AA00814DAA /* DiffableCollectionViewController.swift */,
 				ED5B95822C8F447900344BF1 /* TableViewController.swift */,
 				ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */,
 			);
@@ -425,6 +428,7 @@
 				EDB143A42B8B136800494CFB /* BaseViewController.swift in Sources */,
 				EDB03C252BAF493D0038E82E /* MyOperationQueue.m in Sources */,
 				EDB143262B7B1F1A00494CFB /* main.m in Sources */,
+				ED8E9EDC2DD645B600814DAA /* DiffableCollectionViewController.swift in Sources */,
 				EDB1439B2B879E7800494CFB /* MyClassForKVO.swift in Sources */,
 				EDB03C312BB2081C0038E82E /* SwiftTableViewController.swift in Sources */,
 				EDB03C2C2BB1D47E0038E82E /* MyTimertarget.m in Sources */,
