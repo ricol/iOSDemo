@@ -8,6 +8,17 @@
 import UIKit
 
 class ListTableViewController: BaseTableViewController {
+	
+	lazy var theIndicator: UIActivityIndicatorView = {
+		let v = UIActivityIndicatorView(style: .medium)
+		v.hidesWhenStopped = true
+		return v
+	}()
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: theIndicator)
+	}
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)

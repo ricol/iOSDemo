@@ -7,19 +7,25 @@
 
 import Foundation
 
+@Sendable
+func put(_ s: String) {
+	print("[\(Thread.current)(\(Thread.isMainThread ? "Main" : "Other")] \(s)")
+}
+
 class CoroutineTableViewController: ListTableViewController {
     var task: Task<Void, Never>?
     var primes = [Int]()
     
     func getResult(from start: Int, to end: Int) async -> Int {
-        print("calculating start from \(start) to \(end)...")
+		put("calculating start from \(start) to \(end)...")
         var sum: Int = 0
         var i: Int = start
         while i <= end {
+			try? await Task.sleep(nanoseconds: UInt64(1e6))
             sum += i
             i += 1
         }
-        print("calculating complete from \(start) to \(end): \(sum)")
+        put("calculating complete from \(start) to \(end): \(sum)")
         return sum
     }
     
@@ -192,9 +198,9 @@ class CoroutineTableViewController: ListTableViewController {
     
     @objc func testParallelAsync() {
         @Sendable func callAPI() async -> Int {
-            print("[\(Thread.current)] callAPI...[\(Count.increase())]")
+            put("callAPI...[\(Count.increase())]")
             try? await Task.sleep(nanoseconds: UInt64(Double((1...10).randomElement()!) * 1e9))
-            print("[\(Thread.current)] callAPI...end.[\(Count.decrease())]")
+            put("callAPI...end.[\(Count.decrease())]")
             return (1...100).randomElement()!
         }
         
@@ -225,7 +231,7 @@ class CoroutineTableViewController: ListTableViewController {
             print("nums: \(nums)")
             
             let t = await withTaskGroup(of: Int.self, returning: [Int].self) { group in
-                for i in 0..<10 {
+                for _ in 0..<10 {
                     group.addTask {
                         let v = await callAPI()
                         return v
@@ -375,7 +381,120 @@ class CoroutineTableViewController: ListTableViewController {
             }
         }
     }
-    
+	
+	@objc func testTaskWithUIBlock() {
+		func test1() async {
+			put("test1...")
+		}
+		
+		func test2() async {
+			put("test2...heavy task")
+			let time1 = Date()
+			var count = 0
+			for i in (1...Int(1e7)) {
+				count += i
+			}
+			put("test2...return with result: \(count) time cost: \(Date().timeIntervalSince(time1))")
+		}
+		
+		@MainActor
+		func test3() async {
+			put("test3...")
+		}
+
+		Task {
+			theIndicator.startAnimating()
+			put("running the task...")
+			await test1()
+			await test2()
+			await test3()
+			put("running the task...end.")
+			theIndicator.stopAnimating()
+		}
+	}
+
+	@objc func testTaskWithBackgroundActor() {
+		func test1() async {
+			put("test1...")
+		}
+		
+		@BackgroundActor
+		func test2() async {
+			put("test2...heavy task")
+			let time1 = Date()
+			var count = 0
+			Range(1...Int(1e7)).forEach { i in
+				count += i
+			}
+			put("test2...return with result: \(count) time cost: \(Date().timeIntervalSince(time1))")
+		}
+		
+		@MainActor
+		func test3() async {
+			put("test3...")
+		}
+		
+		Task {
+			theIndicator.startAnimating()
+			put("running the task...")
+			await test1()
+			await test2()
+			await test3()
+			put("running the task...end.")
+			theIndicator.stopAnimating()
+		}
+		
+		@globalActor
+		actor BackgroundActor {
+			static let shared = BackgroundActor()
+			
+			init() {
+				put("BackgroundActor init...")
+			}
+		}
+	}
+
+	@objc func testTaskWithGlobalActor() {
+		func test1() async {
+			put("test1...")
+		}
+		
+		@MyActor
+		func test2() async {
+			put("test2...heavy task")
+			let time1 = Date()
+			var count = 0
+			Range(1...Int(1e7)).forEach { i in
+				count += i
+			}
+			put("test2...return with result: \(count) time cost: \(Date().timeIntervalSince(time1))")
+		}
+		
+		@MainActor
+		func test3() async {
+			put("test3...")
+		}
+		
+		Task {
+			theIndicator.startAnimating()
+			put("running the task...")
+			await test1()
+			await test2()
+			await test3()
+			put("running the task...end.")
+			theIndicator.stopAnimating()
+		}
+		
+		@globalActor
+		actor MyActor {
+			static let shared = MyActor()
+			
+			init() {
+				put("MyActor init...")
+			}
+		}
+	}
+
     @objc func testTaskCancel() {
         let t = Task {
             do {
