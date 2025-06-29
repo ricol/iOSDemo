@@ -141,13 +141,30 @@ class SwiftTableViewController: ListTableViewController {
         }
     }
     
+    var timer1: Timer?
+    
     @objc func testTimer() {
-        let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timer), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer, forMode: .common)
-        timer.fireDate = Date().addingTimeInterval(10)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            timer.invalidate()
-        }
+//        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timer), userInfo: nil, repeats: true)
+//        RunLoop.main.add(timer, forMode: .common)
+//        timer.fireDate = Date().addingTimeInterval(10)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//            timer.invalidate()
+//        }
+        timer1 = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(showinfo), userInfo: nil, repeats: true)
+    }
+    
+    @objc func testDelegate() {
+        let vc = SwiftDelegateDemoViewController()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    deinit {
+        timer1?.invalidate()
+    }
+    
+    @objc func showinfo() {
+        print("in timer...")
     }
     
     @objc func testArchiveToFile() {
@@ -468,5 +485,11 @@ public extension Encodable {
         }
 
         return [:]
+    }
+}
+
+extension SwiftTableViewController: SwiftDelegateDemoViewControllerDelegate {
+    func SwiftDelegateDemoViewControllerDidClose() {
+        print("SwiftDelegateDemoViewControllerDidClose...")
     }
 }

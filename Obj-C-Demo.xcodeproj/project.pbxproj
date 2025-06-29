@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED1F086F2E0A81000000CF05 /* SwiftDelegateDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1F086E2E0A81000000CF05 /* SwiftDelegateDemoViewController.swift */; };
 		ED26C4D92C75B9D7006AB382 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED26C4D82C75B9D7006AB382 /* Extensions.swift */; };
 		ED26C4DB2C75BB1E006AB382 /* playvideo.html in Resources */ = {isa = PBXBuildFile; fileRef = ED26C4DA2C75BB1E006AB382 /* playvideo.html */; };
 		ED3741802C3710C400C756AC /* RotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37417F2C3710C400C756AC /* RotationViewController.swift */; };
@@ -61,6 +62,9 @@
 		EDC6E2B62C6A58FE009229FD /* web.html in Resources */ = {isa = PBXBuildFile; fileRef = EDC6E2B52C6A58FE009229FD /* web.html */; };
 		EDD371C32C5CC81800751F46 /* MyNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD371C22C5CC81800751F46 /* MyNotificationCenter.swift */; };
 		EDE2654B2D82B9D600B74D6B /* CombineFrameworDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE2654A2D82B9C100B74D6B /* CombineFrameworDemoViewController.swift */; };
+		EDE8CC142E10E0C400E7366E /* MyMemoryDemoObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8CC132E10E0C400E7366E /* MyMemoryDemoObject.m */; };
+		EDE8CC182E10E17A00E7366E /* NetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8CC172E10E17A00E7366E /* NetworkHelper.m */; };
+		EDE8CC1A2E10E36500E7366E /* MemoryTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE8CC192E10E36500E7366E /* MemoryTestViewController.swift */; };
 		EDEAF0AB2C777B0300A2D5B1 /* NetworkAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */; };
 		EDEAF0B02C7780F400A2D5B1 /* NetworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */; };
 		EDF31F2C2C59C9A40098754D /* ObjcUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDF31F2B2C59C9A40098754D /* ObjcUtils.m */; };
@@ -69,6 +73,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED1F086E2E0A81000000CF05 /* SwiftDelegateDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDelegateDemoViewController.swift; sourceTree = "<group>"; };
 		ED26C4D82C75B9D7006AB382 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		ED26C4DA2C75BB1E006AB382 /* playvideo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = playvideo.html; sourceTree = "<group>"; };
 		ED37417F2C3710C400C756AC /* RotationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +152,11 @@
 		EDC6E2B52C6A58FE009229FD /* web.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = web.html; sourceTree = "<group>"; };
 		EDD371C22C5CC81800751F46 /* MyNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNotificationCenter.swift; sourceTree = "<group>"; };
 		EDE2654A2D82B9C100B74D6B /* CombineFrameworDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineFrameworDemoViewController.swift; sourceTree = "<group>"; };
+		EDE8CC122E10E0C400E7366E /* MyMemoryDemoObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyMemoryDemoObject.h; sourceTree = "<group>"; };
+		EDE8CC132E10E0C400E7366E /* MyMemoryDemoObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyMemoryDemoObject.m; sourceTree = "<group>"; };
+		EDE8CC162E10E17A00E7366E /* NetworkHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkHelper.h; sourceTree = "<group>"; };
+		EDE8CC172E10E17A00E7366E /* NetworkHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkHelper.m; sourceTree = "<group>"; };
+		EDE8CC192E10E36500E7366E /* MemoryTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTestViewController.swift; sourceTree = "<group>"; };
 		EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
 		EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewController.swift; sourceTree = "<group>"; };
 		EDF31F2A2C59C9A40098754D /* ObjcUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcUtils.h; sourceTree = "<group>"; };
@@ -217,6 +227,8 @@
 				ED8E9EDB2DD645AA00814DAA /* DiffableCollectionViewController.swift */,
 				ED5B95822C8F447900344BF1 /* TableViewController.swift */,
 				ED494D2A2CA67A8C008A0B74 /* IOSTableViewController.swift */,
+				ED1F086E2E0A81000000CF05 /* SwiftDelegateDemoViewController.swift */,
+				EDE8CC192E10E36500E7366E /* MemoryTestViewController.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -250,6 +262,7 @@
 		EDB143122B7B1F0300494CFB /* Obj-C-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				EDE8CC152E10E16200E7366E /* Utils */,
 				EDB143132B7B1F0300494CFB /* AppDelegate.h */,
 				EDB143142B7B1F0300494CFB /* AppDelegate.m */,
 				EDB143162B7B1F0300494CFB /* SceneDelegate.h */,
@@ -309,6 +322,8 @@
 				EDF31F2B2C59C9A40098754D /* ObjcUtils.m */,
 				ED26C4D82C75B9D7006AB382 /* Extensions.swift */,
 				EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */,
+				EDE8CC122E10E0C400E7366E /* MyMemoryDemoObject.h */,
+				EDE8CC132E10E0C400E7366E /* MyMemoryDemoObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -334,6 +349,15 @@
 				EDB143212B7B1F1A00494CFB /* LaunchScreen.storyboard */,
 			);
 			path = storyboards;
+			sourceTree = "<group>";
+		};
+		EDE8CC152E10E16200E7366E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				EDE8CC162E10E17A00E7366E /* NetworkHelper.h */,
+				EDE8CC172E10E17A00E7366E /* NetworkHelper.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,6 +440,7 @@
 				ED52866C2B9776EB00B8D534 /* MyObjcThread.m in Sources */,
 				EDB03C2F2BB1E8090038E82E /* NSTimer+MyTimerBlockSupport.m in Sources */,
 				EDB143152B7B1F0300494CFB /* AppDelegate.m in Sources */,
+				EDE8CC1A2E10E36500E7366E /* MemoryTestViewController.swift in Sources */,
 				EDB03C222BAF467F0038E82E /* MyOperation.m in Sources */,
 				EDB143B02B8B16B100494CFB /* MyTimerProxy.m in Sources */,
 				ED6FAC442BB470D000AD2DEC /* ObjectiveCAnimationTableViewController.m in Sources */,
@@ -430,6 +455,7 @@
 				EDB143262B7B1F1A00494CFB /* main.m in Sources */,
 				ED8E9EDC2DD645B600814DAA /* DiffableCollectionViewController.swift in Sources */,
 				EDB1439B2B879E7800494CFB /* MyClassForKVO.swift in Sources */,
+				ED1F086F2E0A81000000CF05 /* SwiftDelegateDemoViewController.swift in Sources */,
 				EDB03C312BB2081C0038E82E /* SwiftTableViewController.swift in Sources */,
 				EDB03C2C2BB1D47E0038E82E /* MyTimertarget.m in Sources */,
 				EDB143182B7B1F0300494CFB /* SceneDelegate.m in Sources */,
@@ -456,8 +482,10 @@
 				EDEAF0B02C7780F400A2D5B1 /* NetworkTableViewController.swift in Sources */,
 				ED7A92902BC70DEF00ADAD81 /* ListTableViewController.swift in Sources */,
 				ED7A927F2BC1873D00ADAD81 /* Pair.m in Sources */,
+				EDE8CC182E10E17A00E7366E /* NetworkHelper.m in Sources */,
 				EDB143932B87648600494CFB /* MyThread.swift in Sources */,
 				EDB143952B876AE100494CFB /* TouchViewController.swift in Sources */,
+				EDE8CC142E10E0C400E7366E /* MyMemoryDemoObject.m in Sources */,
 				ED4353C72BCCCB5100422351 /* ObjCRuntimeTableViewController.m in Sources */,
 				EDF31F2C2C59C9A40098754D /* ObjcUtils.m in Sources */,
 				ED3741802C3710C400C756AC /* RotationViewController.swift in Sources */,

@@ -5,3 +5,4 @@
 #import "MyTimerProxy.h"
 #import "BaseTableViewController.h"
 #import "Pair.h"
+#import "MyMemoryDemoObject.h"
