@@ -547,6 +547,108 @@ class CoroutineTableViewController: ListTableViewController {
         }
     }
     
+    @objc func testTaskDetachBlockUI() {
+        var count = 0
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            count += 1
+            self.navigationItem.title = "\(count)"
+            print("timer...\(count)")
+        }
+        
+        func runOnMainThread() async -> Double {
+            func performHeavyComputation() async -> Double {
+                return await Task.detached {
+                    var sum: Double = 0
+                    var i: Double = 0
+                    var j: Double = 0
+                    while i <= 1e8 {
+                        i += 1
+                        sum += 1
+                        while j <= 1e5 {
+                            j += 1
+                            sum += 1
+                        }
+                    }
+                    return sum
+                }.value
+            }
+            return await performHeavyComputation()
+        }
+        
+        func heavyComputation() async -> Double {
+            var sum: Double = 0
+            var i: Double = 0
+            var j: Double = 0
+            while i <= 1e8 {
+                i += 1
+                sum += 1
+                while j <= 1e5 {
+                    j += 1
+                    sum += 1
+                }
+            }
+            return sum
+        }
+        
+        Task {
+//            let value = await runOnMainThread()
+            let value = await heavyComputation()
+            print("value: \(value)")
+            timer.invalidate()
+        }
+    }
+    
+    @objc func testTaskDetachNotBlockUI() {
+        var count = 0
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            count += 1
+            self.navigationItem.title = "\(count)"
+            print("timer...\(count)")
+        }
+        
+        Task.detached {
+            func runOnMainThread() async -> Double {
+                func performHeavyComputation() async -> Double {
+                    return await Task.detached {
+                        var sum: Double = 0
+                        var i: Double = 0
+                        var j: Double = 0
+                        while i <= 1e8 {
+                            i += 1
+                            sum += 1
+                            while j <= 1e5 {
+                                j += 1
+                                sum += 1
+                            }
+                        }
+                        return sum
+                    }.value
+                }
+                return await performHeavyComputation()
+            }
+            
+            func heavyComputation() async -> Double {
+                var sum: Double = 0
+                var i: Double = 0
+                var j: Double = 0
+                while i <= 1e8 {
+                    i += 1
+                    sum += 1
+                    while j <= 1e5 {
+                        j += 1
+                        sum += 1
+                    }
+                }
+                return sum
+            }
+            
+//            let value = await runOnMainThread()
+            let value = await heavyComputation()
+            print("value: \(value)")
+            timer.invalidate()
+        }
+    }
+    
     @objc func testTaskGroup() {
         
         func testFun() -> (Int, Int, Int, [Int], Bool) {
