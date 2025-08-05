@@ -303,6 +303,79 @@ class CoroutineTableViewController: ListTableViewController {
         }
     }
     
+    @objc func testMainActor() {
+        class BaseClass {
+            var value: String?
+            
+            func run() {
+                print("[\(Thread.current)] \(#function) begin...")
+                let value = longOperation()
+                print("[\(Thread.current)] \(#function) end with result: \(value)")
+            }
+            
+            private func longOperation() -> Int {
+                print("[\(Thread.current)] begin...")
+                let start = Date()
+                var i = 0
+                var j = 0
+                var count = 0
+                while i < Int(1e9) {
+                    while j < Int(1e7) {
+                        count += 1
+                        j += 1
+                    }
+                    i += 1
+                }
+                print("[\(Thread.current)] end with time consumed: \(Date().timeIntervalSince(start))")
+                return count
+            }
+        }
+        
+        class DerivedClass: BaseClass {
+            
+        }
+        
+        func test() {
+            print("[\(Thread.current)] \(#function) begin...")
+            let c = BaseClass()
+            c.value = "BaseClass"
+            let cc = DerivedClass()
+            cc.value = "DerivedClass"
+            c.run()
+            cc.run()
+            print("[\(Thread.current)] \(#function) end.")
+        }
+        
+        func testWithAsync() async {
+            print("[\(Thread.current)] \(#function) begin...")
+            test()
+            print("[\(Thread.current)] \(#function) end.")
+        }
+        
+//        Task.detached {
+//            print("[\(Thread.current)] \(#function) begin...")
+//            await test()
+//            print("[\(Thread.current)] \(#function) end.")
+//        }
+        
+        Task.detached {
+            func test() {
+                print("[\(Thread.current)] \(#function) begin...")
+                let c = BaseClass()
+                c.value = "BaseClass"
+                let cc = DerivedClass()
+                cc.value = "DerivedClass"
+                c.run()
+                cc.run()
+                print("[\(Thread.current)] \(#function) end.")
+            }
+            
+            print("[\(Thread.current)] \(#function) begin...")
+            await test()
+            print("[\(Thread.current)] \(#function) end.")
+        }
+    }
+    
     @objc func testConvertClosureToAsync() {
         func getContent(url: String, complete: @escaping (String?, Error?) -> Void) {
             if let u = URL(string: url) {

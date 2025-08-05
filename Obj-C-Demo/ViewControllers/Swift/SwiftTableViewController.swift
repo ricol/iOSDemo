@@ -13,6 +13,80 @@ class SwiftTableViewController: ListTableViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
     
+    var block: (() -> Void)?
+    var block1: (() -> Void)?
+    var block2: (() -> Void)?
+    var block3: (() -> Void)?
+    
+    @objc func testRetainCycle() {
+        //code below will cause retain cycle
+        block = {
+            self.testDelegate()
+        }
+//        block?() //doesn't matter whether execute the block or not as long as the block is defined.
+        
+        block1 = { [self] in
+            self.testDelegate()
+        }
+        
+        // code below won't cause retain cycle
+        
+        block2 = { [weak self] in
+            self?.testDelegate()
+        }
+        
+        block3 = { [unowned self] in
+            self.testDelegate()
+        }
+    }
+    
+    @objc func testRetainCycleTryRelease() {
+        //this works
+        block = nil
+        block1 = nil
+    }
+    
+    @objc func testNoRetainCycle() {
+        //below code won't cause retain cycle
+        class Block {
+            var value: ((Any?) -> Void)?
+            var parameter: Any?
+            
+            func run() {
+                value?(parameter)
+            }
+        }
+        
+        let block = {
+            self.testClosure()
+        }
+        block()
+        
+        let b = Block()
+        b.value = { _ in
+            self.testClosure()
+        }
+        b.parameter = self
+        b.run()
+        
+        self.runWithBlock {
+            self.runWithBlock {
+                self.runWithBlock {
+                    self.run()
+                }
+            }
+        }
+    }
+    
+    private func runWithBlock(_ complete: () -> Void) {
+        print("[\(self)] \(#function)...")
+        complete()
+    }
+    
+    private func run() {
+        print("[\(self)] \(#function)...")
+    }
+    
     @objc func testClosure() {
         let c = { (a: Int, b: Int) -> Int in
             return a + b
