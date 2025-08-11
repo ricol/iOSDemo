@@ -241,6 +241,71 @@ class SwiftTableViewController: ListTableViewController {
         print("in timer...")
     }
     
+    @objc func testDefer() {
+        defer {
+            print("1...")
+        }
+        defer {
+            print("2...")
+        }
+        defer {
+            print("3...")
+        }
+        
+        class MyLock: NSLock, @unchecked Sendable {
+            override func lock() {
+                super.lock()
+                print("lock...")
+            }
+            override func unlock() {
+                super.unlock()
+                print("unlock...")
+            }
+        }
+        
+        class Value {
+            private var _v: Int?
+            var v: Int? {
+                get {
+                    print("get...")
+                    return _v
+                }
+                set {
+                    print("set...\(newValue ?? 0)")
+                    _v = newValue
+                }
+            }
+        }
+        
+        class Data {
+            private let lock = MyLock()
+            private var _value: Value = Value()
+            var value: Int? {
+                get {
+                    defer {
+                        lock.unlock()
+                    }
+                    lock.lock()
+                    return _value.v
+                }
+                
+                set {
+                    defer {
+                        lock.unlock()
+                    }
+                    lock.lock()
+                    _value.v = newValue
+                }
+            }
+        }
+        
+        let d = Data()
+        d.value = 1
+        if let v = d.value {
+            print("v: \(v)")
+        }
+    }
+    
     @objc func testArchiveToFile() {
         let ricol = Employee()
         ricol.name = "ricol"
