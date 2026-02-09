@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 @Sendable
 func put(_ s: String) {
@@ -31,14 +32,14 @@ class CoroutineTableViewController: ListTableViewController {
     
     func getResultByTaskResult(from start: Int, to end: Int) async -> Int {
         let task = Task {
-            print("calculating start from \(start) to \(end)...")
+            put("calculating start from \(start) to \(end)...")
             var sum: Int = 0
             var i: Int = start
             while i <= end {
                 sum += i
                 i += 1
             }
-            print("calculating complete from \(start) to \(end): \(sum)")
+            put("calculating complete from \(start) to \(end): \(sum)")
             return sum
         }
         switch await task.result {
@@ -51,110 +52,126 @@ class CoroutineTableViewController: ListTableViewController {
     
     func getResultByTaskValue(from start: Int, to end: Int) async -> Int {
         let task = Task {
-            print("calculating start from \(start) to \(end)...")
+            put("calculating start from \(start) to \(end)...")
             var sum: Int = 0
             var i: Int = start
             while i <= end {
                 sum += i
                 i += 1
             }
-            print("calculating complete from \(start) to \(end): \(sum)")
+            put("calculating complete from \(start) to \(end): \(sum)")
             return sum
         }
         return await task.value
     }
     
     @objc func testAsync() {
+        theIndicator.startAnimating()
         let task1 = Task(priority: .background, operation: {
-            print("task1...get s1...")
+            put("task1...get s1...")
             let s1 = await getResult(from: 0, to: 100)
-            print("task1...get s2...")
+            put("task1...get s2...")
             let s2 = await getResult(from: 101, to: 200)
-            print("task1...get s3...")
+            put("task1...get s3...")
             let s3 = await getResult(from: 201, to: 300)
-            print("task1...get total...")
+            put("task1...get total...")
             let total = s1 + s2 + s3
-            print("task1...s1: \(s1), s2: \(s2), s3: \(s3), total: \(total)")
+            put("task1...s1: \(s1), s2: \(s2), s3: \(s3), total: \(total)")
+            await MainActor.run {
+                theIndicator.stopAnimating()
+            }
         })
     }
     
     @objc func testAsyncWithTaskResult() {
+        theIndicator.startAnimating()
         let task2 = Task {
-            print("task2...get total...")
-            let total = await getResultByTaskResult(from: 0, to: 300)
-            print("task2 total: \(total)")
+            put("task2...get total...")
+            let total = await getResultByTaskResult(from: 0, to: 10000)
+            put("task2 total: \(total)")
+            await MainActor.run {
+                theIndicator.stopAnimating()
+            }
         }
     }
     
     @objc func testAsyncWithTaskValue() {
+        theIndicator.startAnimating()
         let task3 = Task {
-            print("Task3...s1...")
+            put("Task3...s1...")
             async let s1 = getResultByTaskValue(from: 0, to: 100)
             try? await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-            print("Task3...s2...")
+            put("Task3...s2...")
             async let s2 = getResultByTaskValue(from: 101, to: 200)
             try? await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-            print("Task3...s3...")
+            put("Task3...s3...")
             async let s3 = getResultByTaskValue(from: 201, to: 300)
             try? await Task.sleep(nanoseconds: UInt64(3 * 1e9))
             let total = await s1 + s2 + s3
-            print("task3...total: \(total)")
+            put("task3...total: \(total)")
+            await MainActor.run {
+                theIndicator.stopAnimating()
+            }
         }
     }
     
     @objc func testAsyncWithTaskAndCancel() {
+        theIndicator.startAnimating()
         let task1 = Task {
-            print("task1...s1...")
+            put("task1...s1...")
             async let s1 = getResultByTaskValue(from: 0, to: 100)
             try await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-            print("task1...s2...")
+            put("task1...s2...")
             async let s2 = getResultByTaskValue(from: 101, to: 200)
             try await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-            print("task1...s3...")
+            put("task1...s3...")
             async let s3 = getResultByTaskValue(from: 201, to: 300)
             try await Task.sleep(nanoseconds: UInt64(3 * 1e9))
             let total = await s1 + s2 + s3
-            print("task1...total: \(total)")
+            put("task1...total: \(total)")
         }
         let task2 = Task {
             do {
-                print("task2...s1...")
+                put("task2...s1...")
                 async let s1 = getResultByTaskValue(from: 0, to: 100)
                 try await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-                print("task2...s2...")
+                put("task2...s2...")
                 async let s2 = getResultByTaskValue(from: 101, to: 200)
                 try await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-                print("task2...s3...")
+                put("task2...s3...")
                 async let s3 = getResultByTaskValue(from: 201, to: 300)
                 try await Task.sleep(nanoseconds: UInt64(3 * 1e9))
                 let total = await s1 + s2 + s3
-                print("task2...total: \(total)")
+                put("task2...total: \(total)")
             }catch (let e) {
-                print("task2: exception: \(e)")
+                put("task2: exception: \(e)")
             }
         }
         let task3 = Task {
-            print("task1...s1...")
+            put("task1...s1...")
             async let s1 = getResultByTaskValue(from: 0, to: 100)
             try? await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-            print("task1...s2...")
+            put("task1...s2...")
             async let s2 = getResultByTaskValue(from: 101, to: 200)
             try? await Task.sleep(nanoseconds: UInt64(3 * 1e9))
-            print("task1...s3...")
+            put("task1...s3...")
             async let s3 = getResultByTaskValue(from: 201, to: 300)
             try? await Task.sleep(nanoseconds: UInt64(3 * 1e9))
             let total = await s1 + s2 + s3
-            print("task1...total: \(total)")
+            put("task1...total: \(total)")
         }
         let deadline: DispatchTime = .now().advanced(by: DispatchTimeInterval.seconds(3))
         DispatchQueue.main.asyncAfter(deadline: deadline) {
             task1.cancel()
             task2.cancel()
             task3.cancel()
+            
+            self.theIndicator.stopAnimating()
         }
     }
     
     @objc func testAsyncWithTaskCancellationHandler() {
+        theIndicator.startAnimating()
         func getAllPrimes(from: Int, to: Int) async throws -> [Int] {
             var tasks = [Task<Int?, Error>]()
             (from...to).forEach { n in
@@ -193,10 +210,12 @@ class CoroutineTableViewController: ListTableViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
             t.cancel()
+            self.theIndicator.stopAnimating()
         })
     }
     
     @objc func testParallelAsync() {
+        theIndicator.startAnimating()
         @Sendable func callAPI() async -> Int {
             put("callAPI...[\(Count.increase())]")
             try? await Task.sleep(nanoseconds: UInt64(Double((1...10).randomElement()!) * 1e9))
@@ -248,6 +267,7 @@ class CoroutineTableViewController: ListTableViewController {
             nums.removeAll()
             nums += t
             print("nums: \(nums)")
+            self.theIndicator.stopAnimating()
         }
     }
     
@@ -1130,6 +1150,364 @@ class CoroutineTableViewController: ListTableViewController {
 
         print("Waiting for tasks to complete...")
 
+    }
+    
+    @objc func testSendable() {
+        actor Cancel {
+            private var _value: Bool = false
+
+            func shouldCancel() -> Bool { _value }
+
+            func cancel() {
+                _value = true
+            }
+
+            func reset() {
+                _value = false
+            }
+
+            func checkAndReset() -> Bool {
+                let v = _value
+                reset()
+                return v
+            }
+        }
+
+        struct Global {
+            static var cancel = Cancel()
+        }
+
+        func op(watch: ((Double) -> Void)? = nil) {
+            put("begin long time operation...")
+            let start = Date()
+            var sum: Double = 0.0
+            var num = 0.1
+            while (sum <= 1e15) {
+                sum += num
+                num += 0.1
+                if let watch {
+                    watch(sum)
+                }
+            }
+            let end = Date()
+            put("[\(end.timeIntervalSince(start))] end with sum: \(sum)")
+        }
+
+        func opWithAsync(watch: ((Double) async -> Void)? = nil) async {
+            put("begin long time operation...")
+            let start = Date()
+            var sum: Double = 0.0
+            var num = 0.1
+            while (sum <= 1e15) {
+                sum += num
+                num += 0.1
+                if let watch {
+                    await watch(sum)
+                }
+            }
+            let end = Date()
+            put("[\(end.timeIntervalSince(start))] end with sum: \(sum)")
+        }
+
+        @concurrent
+        func opWithConcurrentAsync(watch: ((Double) async -> Void)? = nil) async {
+            put("begin long time operation...")
+            let start = Date()
+            var sum: Double = 0.0
+            var num = 0.1
+            while (sum <= 1e15) {
+                sum += num
+                num += 0.1
+                if let watch {
+                    await watch(sum)
+                }
+            }
+            let end = Date()
+            put("[\(end.timeIntervalSince(start))] end with sum: \(sum)")
+        }
+
+        @concurrent
+        func opWithConcurrentAnnotationButCallMainActorOp(watch: ((Double) -> Void)? = nil) async {
+            await op(watch: watch)
+        }
+
+        @concurrent
+        func opWithConcurrentAnnotation(watch: ((Double) async -> Void)? = nil) async {
+            await opWithAsync(watch: watch)
+        }
+
+        @Sendable
+        func opWithSendable(watch: ((Double) -> Void)? = nil) {
+            put("begin long time operation...")
+            let start = Date()
+            var sum: Double = 0.0
+            var num = 0.1
+            while (sum <= 1e20) {
+                sum += num
+                num += 0.1
+                if let watch {
+                    watch(sum)
+                }
+            }
+            let end = Date()
+            put("[\(end.timeIntervalSince(start))] end with sum: \(sum)")
+        }
+        
+        @Sendable
+        func opWithAsyncWithSendable(watch: (@Sendable (Double) async -> Void)? = nil) async {
+            put("begin long time operation...")
+            let start = Date()
+            var sum: Double = 0.0
+            var num = 0.1
+            while (sum <= 1e15) {
+                sum += num
+                num += 0.1
+                if let watch {
+                    await watch(sum)
+                }
+//                if await Global.cancel.checkAndReset() { break }
+            }
+            let end = Date()
+            put("[\(end.timeIntervalSince(start))] end with sum: \(sum)")
+        }
+
+        let nonBlockingCasesView = CustomListView(rows: [ListRow(title: "opWithAsyncWithSendable", block: {
+            Task {
+                self.theIndicator.startAnimating()
+                put("processData...")
+                await opWithAsyncWithSendable()
+                put("processData...end")
+                self.theIndicator.stopAnimating()
+            }
+        }),ListRow(title: "opWithAsyncWithSendableInTaskInClass", block: {
+            Task {
+                class MyClass {
+                    func processDataWithTask(begin: @escaping () -> Void, end: @escaping () -> Void) {
+                        put("processDataWithTask...begin")
+                        Task { @MainActor in
+                            begin()
+                            put("task begin")
+                            await opWithAsyncWithSendable()
+                            put("task end")
+                            end()
+                        }
+                        put("processDataWithTask...end")
+                    }
+                }
+                MyClass().processDataWithTask(begin: {
+                    self.theIndicator.startAnimating()
+                }, end: {
+                    self.theIndicator.stopAnimating()
+                })
+            }
+        }),ListRow(title: "opWithAsyncWithSendableInClassMarkedWithMainActor", block: {
+            Task {
+                @MainActor
+                class MyClass {
+                    func processData() async {
+                        put("processData...")
+                        await opWithAsyncWithSendable() { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+                
+                self.theIndicator.startAnimating()
+                await MyClass().processData()
+                self.theIndicator.stopAnimating()
+            }
+        }),ListRow(title: "opWithAsyncInTaskWithMainActor", block: {
+            Task { @MainActor in
+                class MyClass {
+                    func processData() async {
+                        put("processData...")
+                        await opWithAsync() { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+                
+                self.theIndicator.startAnimating()
+                await MyClass().processData()
+                self.theIndicator.stopAnimating()
+            }
+        }),ListRow(title: "opWithSendableInTaskWithMainActor", block: {
+            Task { @MainActor in
+                class MyClass {
+                    func processData() async {
+                        put("processData...")
+                        opWithSendable()
+                        put("processData...end")
+                    }
+                }
+                self.theIndicator.startAnimating()
+                await MyClass().processData()
+                self.theIndicator.stopAnimating()
+            }
+        }),ListRow(title: "opWithAsyncWithSendableInClass", block: {
+            Task {
+                class MyClass {
+                    func processData() async {
+                        put("processData...")
+                        await opWithAsyncWithSendable() { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+                
+                self.theIndicator.startAnimating()
+                await MyClass().processData()
+                self.theIndicator.stopAnimating()
+            }
+        }),ListRow(title: "opWithSendableInClass", block: {
+            class MyClass {
+                func processData() async {
+                    put("processData...")
+                    opWithSendable()
+                    put("processData...end")
+                }
+            }
+            
+            Task {
+                self.theIndicator.startAnimating()
+                await MyClass().processData()
+                self.theIndicator.stopAnimating()
+            }
+        }),ListRow(title: "processDataWithHeaveOperationInClass", block: {
+            class MyClass {
+                func processDataWithHeaveOperation() async {
+                    put("begin long time operation...")
+                    let start = Date()
+                    var sum: Double = 0.0
+                    var num = 0.1
+                    while (sum <= 1e15) {
+                        sum += num
+                        num += 0.1
+                    }
+                    let end = Date()
+                    put("[\(end.timeIntervalSince(start))] end with sum: \(sum)")
+                }
+            }
+            Task {
+                self.theIndicator.startAnimating()
+                await MyClass().processDataWithHeaveOperation()
+                self.theIndicator.stopAnimating()
+            }
+        }),ListRow(title: "runOPInConcurrentMode", block: {
+            Task { @MainActor in
+                class MyClass {
+                    func processData() async {
+                        put("processData...")
+                        await opWithConcurrentAnnotation { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+
+                self.theIndicator.startAnimating()
+                await MyClass().processData()
+                self.theIndicator.stopAnimating()
+            }
+        }), ListRow(title: "opWithSendableInConcurrentTaskOnly", block: {
+            Task { @concurrent in
+                class MyClass {
+                    func processData() {
+                        put("processData...")
+                        opWithSendable() { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+                await self.theIndicator.startAnimating()
+                MyClass().processData()
+                await self.theIndicator.stopAnimating()
+            }
+        })], title: "Non Blocking Cases")
+
+        let blockingCasesView = CustomListView(rows: [ListRow(title: "opWithAsyncInClassMarkedWithMainActor(blocking?)", block: {
+            Task { @concurrent in
+                @MainActor
+                class MyClass {
+                    func processData() async {
+                        put("processData...")
+                        await opWithAsync() { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+    
+                await self.theIndicator.startAnimating()
+                await MyClass().processData()
+                await self.theIndicator.stopAnimating()
+            }
+        }), ListRow(title: "opWithSendableInTaskOnly(nonblocking?)", block: {
+            Task { @concurrent in
+                class MyClass {
+                    func processData() {
+                        put("processData...")
+                        opWithSendable() { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+                await self.theIndicator.startAnimating()
+                MyClass().processData()
+                await self.theIndicator.stopAnimating()
+            }
+        }), ListRow(title: "processDataWithTaskMarkedByMainActor(blocking?)", block: {
+            Task { @concurrent in
+                class MyClass {
+                    @MainActor
+                    func processDataWithTaskMarkedByMainActor() {
+                        Task {
+                            put("processData...")
+                            await opWithAsync() { sum in
+                                put("sum: \(sum)")
+                            }
+                            put("processData...end")
+                        }
+                    }
+                }
+                await self.theIndicator.startAnimating()
+                await MyClass().processDataWithTaskMarkedByMainActor()
+                await self.theIndicator.stopAnimating()
+            }
+        }), ListRow(title: "opWithAsyncInTaskWithMainActor(blocking?)", block: {
+            Task { @concurrent in
+                put("processData...")
+                await opWithAsync()
+                put("processData...end")
+            }
+        }), ListRow(title: "opWithConcurrentAnnotationButCallMainActorOp", block: {
+            Task { @concurrent in
+                class MyClass {
+                    func processData() async {
+                        put("processData...")
+                        await opWithConcurrentAnnotationButCallMainActorOp { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+
+                await self.theIndicator.startAnimating()
+                await MyClass().processData()
+                await self.theIndicator.stopAnimating()
+            }
+        })], title: "Blocking Cases")
+
+        CustomListView(rows: [ListRow(title: "NonBlocking cases", block: {
+            nonBlockingCasesView.push()
+        }), ListRow(title: "Blocking Cases", block: {
+            blockingCasesView.push()
+        })]).push()
     }
 }
 

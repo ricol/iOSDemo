@@ -67,6 +67,7 @@
 		EDE8CC1A2E10E36500E7366E /* MemoryTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE8CC192E10E36500E7366E /* MemoryTestViewController.swift */; };
 		EDEAF0AB2C777B0300A2D5B1 /* NetworkAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */; };
 		EDEAF0B02C7780F400A2D5B1 /* NetworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */; };
+		EDECCAC72F14E59D004790B9 /* CustomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDECCAC62F14E598004790B9 /* CustomListView.swift */; };
 		EDF31F2C2C59C9A40098754D /* ObjcUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = EDF31F2B2C59C9A40098754D /* ObjcUtils.m */; };
 		EDF371FE2CF1A58E0085A5BC /* SwiftUIMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF371FD2CF1A58E0085A5BC /* SwiftUIMainView.swift */; };
 		EDF372012CF1A6000085A5BC /* StatusBarDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF372002CF1A5FF0085A5BC /* StatusBarDemoViewController.swift */; };
@@ -159,6 +160,7 @@
 		EDE8CC192E10E36500E7366E /* MemoryTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTestViewController.swift; sourceTree = "<group>"; };
 		EDEAF0AA2C777B0300A2D5B1 /* NetworkAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAvailability.swift; sourceTree = "<group>"; };
 		EDEAF0AF2C7780F400A2D5B1 /* NetworkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTableViewController.swift; sourceTree = "<group>"; };
+		EDECCAC62F14E598004790B9 /* CustomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListView.swift; sourceTree = "<group>"; };
 		EDF31F2A2C59C9A40098754D /* ObjcUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcUtils.h; sourceTree = "<group>"; };
 		EDF31F2B2C59C9A40098754D /* ObjcUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcUtils.m; sourceTree = "<group>"; };
 		EDF371FD2CF1A58E0085A5BC /* SwiftUIMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIMainView.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		ED7A92892BC25DE900ADAD81 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				EDECCAC62F14E598004790B9 /* CustomListView.swift */,
 				ED5A8C292DBA0F4B0023393C /* ObjectCRunTimeViewController.swift */,
 				EDF371FD2CF1A58E0085A5BC /* SwiftUIMainView.swift */,
 				EDE2654A2D82B9C100B74D6B /* CombineFrameworDemoViewController.swift */,
@@ -456,6 +459,7 @@
 				ED8E9EDC2DD645B600814DAA /* DiffableCollectionViewController.swift in Sources */,
 				EDB1439B2B879E7800494CFB /* MyClassForKVO.swift in Sources */,
 				ED1F086F2E0A81000000CF05 /* SwiftDelegateDemoViewController.swift in Sources */,
+				EDECCAC72F14E59D004790B9 /* CustomListView.swift in Sources */,
 				EDB03C312BB2081C0038E82E /* SwiftTableViewController.swift in Sources */,
 				EDB03C2C2BB1D47E0038E82E /* MyTimertarget.m in Sources */,
 				EDB143182B7B1F0300494CFB /* SceneDelegate.m in Sources */,

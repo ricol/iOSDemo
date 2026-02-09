@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import SwiftUI
 
 extension UIDeviceOrientation {
     func toDisplay() -> String {
@@ -119,5 +121,12 @@ extension UIViewController {
     func embedInNavigationController() -> UIViewController {
         let navigationController = MainNavigationController(rootViewController: self)
         return navigationController
+    }
+}
+
+extension CustomListView {
+    func push() {
+        let hosting = UIHostingController(rootView: self)
+        (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.pushViewController(hosting, animated: true)
     }
 }
