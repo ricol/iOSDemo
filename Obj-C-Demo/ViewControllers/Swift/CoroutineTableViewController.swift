@@ -10,7 +10,7 @@ import SwiftUI
 
 @Sendable
 func put(_ s: String) {
-	print("[\(Thread.current)(\(Thread.isMainThread ? "Main" : "Other")] \(s)")
+	print("[(\(Thread.isMainThread ? "Main" : "Other")] (\(Thread.current)) \(s)")
 }
 
 class CoroutineTableViewController: ListTableViewController {
@@ -1152,7 +1152,7 @@ class CoroutineTableViewController: ListTableViewController {
 
     }
     
-    @objc func testSendable() {
+    @objc func testGeneral() {
         actor Cancel {
             private var _value: Bool = false
 
@@ -1175,6 +1175,7 @@ class CoroutineTableViewController: ListTableViewController {
 
         struct Global {
             static var cancel = Cancel()
+            static let MAX_NUM = 1e6
         }
 
         func op(watch: ((Double) -> Void)? = nil) {
@@ -1182,7 +1183,7 @@ class CoroutineTableViewController: ListTableViewController {
             let start = Date()
             var sum: Double = 0.0
             var num = 0.1
-            while (sum <= 1e15) {
+            while (sum <= Global.MAX_NUM) {
                 sum += num
                 num += 0.1
                 if let watch {
@@ -1198,7 +1199,7 @@ class CoroutineTableViewController: ListTableViewController {
             let start = Date()
             var sum: Double = 0.0
             var num = 0.1
-            while (sum <= 1e15) {
+            while (sum <= Global.MAX_NUM) {
                 sum += num
                 num += 0.1
                 if let watch {
@@ -1215,7 +1216,7 @@ class CoroutineTableViewController: ListTableViewController {
             let start = Date()
             var sum: Double = 0.0
             var num = 0.1
-            while (sum <= 1e15) {
+            while (sum <= Global.MAX_NUM) {
                 sum += num
                 num += 0.1
                 if let watch {
@@ -1242,7 +1243,7 @@ class CoroutineTableViewController: ListTableViewController {
             let start = Date()
             var sum: Double = 0.0
             var num = 0.1
-            while (sum <= 1e20) {
+            while (sum <= Global.MAX_NUM) {
                 sum += num
                 num += 0.1
                 if let watch {
@@ -1259,7 +1260,7 @@ class CoroutineTableViewController: ListTableViewController {
             let start = Date()
             var sum: Double = 0.0
             var num = 0.1
-            while (sum <= 1e15) {
+            while (sum <= Global.MAX_NUM) {
                 sum += num
                 num += 0.1
                 if let watch {
@@ -1383,7 +1384,7 @@ class CoroutineTableViewController: ListTableViewController {
                     let start = Date()
                     var sum: Double = 0.0
                     var num = 0.1
-                    while (sum <= 1e15) {
+                    while (sum <= Global.MAX_NUM) {
                         sum += num
                         num += 0.1
                     }
@@ -1396,7 +1397,7 @@ class CoroutineTableViewController: ListTableViewController {
                 await MyClass().processDataWithHeaveOperation()
                 self.theIndicator.stopAnimating()
             }
-        }),ListRow(title: "runOPInConcurrentMode", block: {
+        }),ListRow(title: "runOPOnMainActorTaskButAwait", block: {
             Task { @MainActor in
                 class MyClass {
                     func processData() async {
@@ -1412,7 +1413,7 @@ class CoroutineTableViewController: ListTableViewController {
                 await MyClass().processData()
                 self.theIndicator.stopAnimating()
             }
-        }), ListRow(title: "opWithSendableInConcurrentTaskOnly", block: {
+        }), ListRow(title: "opWithConcurrentTaskWithSendable", block: {
             Task { @concurrent in
                 class MyClass {
                     func processData() {
@@ -1427,9 +1428,46 @@ class CoroutineTableViewController: ListTableViewController {
                 MyClass().processData()
                 await self.theIndicator.stopAnimating()
             }
+        }), ListRow(title: "opWithConcurrentTask", block: {
+            Task { @concurrent in
+                class MyClass {
+                    func processData() {
+                        put("processData...")
+                        opWithSendable() { sum in
+                            put("sum: \(sum)")
+                        }
+                        put("processData...end")
+                    }
+                }
+                await self.theIndicator.startAnimating()
+                MyClass().processData()
+                await self.theIndicator.stopAnimating()
+            }
+        }), ListRow(title: "opWithTaskWithHeavyWatchOP", block: {
+            @concurrent
+            func op(watch: (Double) async -> Void) async {
+                put("begin...")
+                var sum: Double = 0
+                while sum <= Global.MAX_NUM {
+                    sum += 0.1
+                    await watch(sum)
+                }
+                put("end")
+            }
+
+            Task { @concurrent in
+                await op { num in
+                    put("begin watch...[sum: \(num)]")
+                    var sum: Double = 0
+                    while sum <= Global.MAX_NUM {
+                        sum += 0.1
+                    }
+                    put("end watch.")
+                }
+            }
         })], title: "Non Blocking Cases")
 
-        let blockingCasesView = CustomListView(rows: [ListRow(title: "opWithAsyncInClassMarkedWithMainActor(blocking?)", block: {
+        let blockingCasesView = CustomListView(rows: [ListRow(title: "opWithConcurrentTaskButAwaitOpClassOnMainActor", block: {
             Task { @concurrent in
                 @MainActor
                 class MyClass {
@@ -1446,22 +1484,7 @@ class CoroutineTableViewController: ListTableViewController {
                 await MyClass().processData()
                 await self.theIndicator.stopAnimating()
             }
-        }), ListRow(title: "opWithSendableInTaskOnly(nonblocking?)", block: {
-            Task { @concurrent in
-                class MyClass {
-                    func processData() {
-                        put("processData...")
-                        opWithSendable() { sum in
-                            put("sum: \(sum)")
-                        }
-                        put("processData...end")
-                    }
-                }
-                await self.theIndicator.startAnimating()
-                MyClass().processData()
-                await self.theIndicator.stopAnimating()
-            }
-        }), ListRow(title: "processDataWithTaskMarkedByMainActor(blocking?)", block: {
+        }), ListRow(title: "opWithConcurrentTaskButAwaitOpOnMainActor", block: {
             Task { @concurrent in
                 class MyClass {
                     @MainActor
@@ -1479,13 +1502,13 @@ class CoroutineTableViewController: ListTableViewController {
                 await MyClass().processDataWithTaskMarkedByMainActor()
                 await self.theIndicator.stopAnimating()
             }
-        }), ListRow(title: "opWithAsyncInTaskWithMainActor(blocking?)", block: {
+        }), ListRow(title: "opWithConcurrentTaskButWithAwaitOp", block: {
             Task { @concurrent in
                 put("processData...")
                 await opWithAsync()
                 put("processData...end")
             }
-        }), ListRow(title: "opWithConcurrentAnnotationButCallMainActorOp", block: {
+        }), ListRow(title: "opWithConcurrentTaskButWithAwaitOpInClass", block: {
             Task { @concurrent in
                 class MyClass {
                     func processData() async {
