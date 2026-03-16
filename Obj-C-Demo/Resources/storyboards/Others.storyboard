@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Safe Area Testing View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="SafeAreaTestingViewController" id="Y6W-OH-hqX" customClass="SafeAreaTestingViewController" customModule="Obj_C_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc" customClass="SafeAreaView" customModule="Obj_C_Demo" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-Xd-pTQ" customClass="SafeAreaView" customModule="Obj_C_Demo" customModuleProvider="target">
+                                <rect key="frame" x="50" y="168" width="293" height="206"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tcn-nU-Zny" customClass="SafeAreaView" customModule="Obj_C_Demo" customModuleProvider="target">
+                                        <rect key="frame" x="26.666666666666686" y="38" width="240" height="128"/>
+                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="AV1-Jo-kaG"/>
+                                            <constraint firstAttribute="width" constant="240" id="b5D-9L-nHz"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="tcn-nU-Zny" firstAttribute="centerX" secondItem="cBR-Xd-pTQ" secondAttribute="centerX" id="Izk-o1-zzf"/>
+                                    <constraint firstItem="tcn-nU-Zny" firstAttribute="centerY" secondItem="cBR-Xd-pTQ" secondAttribute="centerY" constant="-1" id="Qen-7T-sFn"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFh-9R-AAl" customClass="SafeAreaView" customModule="Obj_C_Demo" customModuleProvider="target">
+                                <rect key="frame" x="50" y="452" width="293" height="206"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K42-QW-ayP" customClass="SafeAreaView" customModule="Obj_C_Demo" customModuleProvider="target">
+                                        <rect key="frame" x="26.666666666666686" y="38" width="240" height="128"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lwd-5n-8Gz" customClass="SafeAreaView" customModule="Obj_C_Demo" customModuleProvider="target">
+                                                <rect key="frame" x="59.999999999999986" y="39" width="120.00000000000001" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="7M4-tD-7i7"/>
+                                                    <constraint firstAttribute="width" constant="120" id="81P-CH-Af8"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Lwd-5n-8Gz" firstAttribute="centerY" secondItem="K42-QW-ayP" secondAttribute="centerY" id="G7T-y2-ZP8"/>
+                                            <constraint firstAttribute="height" constant="128" id="QFi-xa-GKS"/>
+                                            <constraint firstItem="Lwd-5n-8Gz" firstAttribute="centerX" secondItem="K42-QW-ayP" secondAttribute="centerX" id="YhR-s4-xEi"/>
+                                            <constraint firstAttribute="width" constant="240" id="pdm-md-cyz"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstItem="K42-QW-ayP" firstAttribute="centerX" secondItem="WFh-9R-AAl" secondAttribute="centerX" id="eLS-Ib-5Ot"/>
+                                    <constraint firstItem="K42-QW-ayP" firstAttribute="centerY" secondItem="WFh-9R-AAl" secondAttribute="centerY" constant="-1" id="emn-5y-3ZL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cBR-Xd-pTQ" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="11E-J0-bO6"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="WFh-9R-AAl" secondAttribute="bottom" constant="126" id="5D1-PU-7Uv"/>
+                            <constraint firstItem="WFh-9R-AAl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="FDs-z6-CBt"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="cBR-Xd-pTQ" secondAttribute="bottom" constant="410" id="LRU-nL-uyp"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cBR-Xd-pTQ" secondAttribute="trailing" constant="50" id="Vf7-LD-1R0"/>
+                            <constraint firstItem="WFh-9R-AAl" firstAttribute="top" secondItem="cBR-Xd-pTQ" secondAttribute="bottom" constant="78" id="hQZ-wd-Zz4"/>
+                            <constraint firstItem="cBR-Xd-pTQ" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="hfZ-mb-mjV"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="WFh-9R-AAl" secondAttribute="trailing" constant="50" id="szl-QN-rPl"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139.69465648854961" y="91.549295774647888"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

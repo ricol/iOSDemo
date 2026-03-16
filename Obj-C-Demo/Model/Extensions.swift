@@ -130,3 +130,13 @@ extension CustomListView {
         (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.pushViewController(hosting, animated: true)
     }
 }
+
+extension UIStoryboard {
+    static func getMainStoryboard() -> UIStoryboard {
+        UIStoryboard(name: "Main", bundle: nil)
+    }
+
+    static func getOthersStoryboard() -> UIStoryboard {
+        UIStoryboard(name: "Others", bundle: nil)
+    }
+}

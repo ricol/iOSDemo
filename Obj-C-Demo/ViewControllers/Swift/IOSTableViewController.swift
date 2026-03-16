@@ -13,4 +13,11 @@ class IOSTableViewController: ListTableViewController {
         let hosting = UIHostingController(rootView: SwiftUIMainView())
         self.navigationController?.pushViewController(hosting, animated: true)
     }
+
+    @objc func testSafeArea() {
+        let others = UIStoryboard.getOthersStoryboard()
+        if let vc = others.instantiateViewController(withIdentifier: "SafeAreaTestingViewController") as? SafeAreaTestingViewController {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
