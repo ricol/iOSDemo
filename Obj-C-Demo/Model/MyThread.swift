@@ -7,8 +7,8 @@
 
 import Foundation
 
-@objc class MyThread: Thread {
-    static var count: Int = 0
+@objc nonisolated class MyThread: Thread {
+    nonisolated(unsafe) static var count: Int = 0
     var object: NSObject?
 
     override init() {

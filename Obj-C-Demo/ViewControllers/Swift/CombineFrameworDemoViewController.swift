@@ -59,11 +59,17 @@ class CombineFrameworDemoViewController: ListTableViewController {
         let menu = CustomListView(rows: [
             ListRow(title: "Action 1", block: {
                 func show() {
-                    print("[after 1 second] expecting \(self.vm.flag)......")
-                    print("btn.isEnabled: \(self.vm.btn.isEnabled) -> \(self.vm.btn.isEnabled == self.vm.flag ? "pass": "fail")")
-                    print("lbl.text: \(String(describing: self.vm.lbl.text)) -> \(self.vm.lbl.text == "\(self.vm.flag)" ? "pass" : "fail")")
-                    print("object.text: \(self.vm.object.text) -> \(self.vm.object.text == "\(self.vm.flag)" ? "pass" : "fail")")
-                    print("object.flag: \(self.vm.object.flag) -> \(self.vm.object.flag == self.vm.flag ? "pass" : "fail")")
+                    @MainActor
+                    func show() async {
+                        print("[after 1 second] expecting \(self.vm.flag)......")
+                        print("btn.isEnabled: \(self.vm.btn.isEnabled) -> \(self.vm.btn.isEnabled == self.vm.flag ? "pass": "fail")")
+                        print("lbl.text: \(String(describing: self.vm.lbl.text)) -> \(self.vm.lbl.text == "\(self.vm.flag)" ? "pass" : "fail")")
+                        print("object.text: \(self.vm.object.text) -> \(self.vm.object.text == "\(self.vm.flag)" ? "pass" : "fail")")
+                        print("object.flag: \(self.vm.object.flag) -> \(self.vm.object.flag == self.vm.flag ? "pass" : "fail")")
+                    }
+                    Task {
+                        await show()
+                    }
                 }
 
                 self.vm.$flag.receive(on: DispatchQueue.main).assign(to: \.isEnabled, on: self.vm.btn).store(in: &self.cancellables)

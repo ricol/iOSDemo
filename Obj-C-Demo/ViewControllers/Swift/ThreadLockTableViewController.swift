@@ -46,7 +46,7 @@ class ThreadLockTableViewController: ListTableViewController {
     }
     
     @objc func testNSCondition() {
-        class MyConditionLock: NSCondition {
+        nonisolated class MyConditionLock: NSCondition {
             override func lock() {
                 print("\(self)lock...")
                 super.lock()

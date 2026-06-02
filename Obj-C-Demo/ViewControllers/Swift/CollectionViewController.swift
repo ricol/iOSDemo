@@ -68,7 +68,7 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var viewBG: UIView!
     @IBOutlet weak var theTitle: UILabel!
     
-    override func awakeFromNib() {
+    nonisolated override func awakeFromNib() {
         super.awakeFromNib()
         [constraintTop, constraintBottom, constraintLeading, constraintTrailing].forEach { constraint in
             constraint?.constant = 1

@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc class MyClassForKVO: NSObject {
+@objc nonisolated class MyClassForKVO: NSObject {
     @objc var name: String?
     @objc var age: Int = 0 {
         willSet {
@@ -32,7 +32,7 @@ import UIKit
         self.age = 23
         print("propery changed in swift, but looks like no effect")
     }
-    
+
     override class func automaticallyNotifiesObservers(forKey key: String) -> Bool {
         if key == "age" { return false }
         return super.automaticallyNotifiesObservers(forKey: key)

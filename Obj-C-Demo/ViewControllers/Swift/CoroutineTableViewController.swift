@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
+nonisolated
 func put(_ s: String) {
 	print("[(\(Thread.isMainThread ? "Main" : "Other")] (\(Thread.current)) \(s)")
 }
 
-@MainActor
 class CoroutineTableViewController: ListTableViewController {
     var task: Task<Void, Never>?
     var primes = [Int]()
@@ -238,12 +238,15 @@ class CoroutineTableViewController: ListTableViewController {
             nums = Array(repeating: 0, count: 10)
             await withTaskGroup(of: Void.self) { group in
                 for i in 0..<10 {
-                    group.addTask {
+                    let block: @Sendable () async -> Void = {
                         let v = await callAPI()
                         await MainActor.run {
                             print("[\(Thread.current)] assigning...\(i) with \(v)")
                             nums[i] = v
                         }
+                    }
+                    group.addTask {
+                        await block()
                     }
                 }
             }
@@ -325,7 +328,7 @@ class CoroutineTableViewController: ListTableViewController {
 
     @MainActor
     @objc func testMainActor() {
-        @MainActor
+        nonisolated
         class BaseClass {
             var value: String?
             
@@ -359,7 +362,8 @@ class CoroutineTableViewController: ListTableViewController {
 
         final class DerivedClass: BaseClass {
         }
-        
+
+        nonisolated
         func test() {
             print("[\(Thread.current)] \(#function) begin...")
             let c = BaseClass()
@@ -370,8 +374,9 @@ class CoroutineTableViewController: ListTableViewController {
             cc.run()
             print("[\(Thread.current)] \(#function) end.")
         }
-        
-        func testWithAsync() async {
+
+        nonisolated
+        func testWithAsync() {
             print("[\(Thread.current)] \(#function) begin...")
             test()
             print("[\(Thread.current)] \(#function) end.")
@@ -383,23 +388,21 @@ class CoroutineTableViewController: ListTableViewController {
 //            print("[\(Thread.current)] \(#function) end.")
 //        }
 
-        Task.detached {
-            @MainActor
-            func test() async {
-                print("[\(Thread.current)] \(#function) begin...")
-                let c = BaseClass()
-                c.value = "BaseClass"
-                let cc = DerivedClass()
-                cc.value = "DerivedClass"
-                c.run()
-                cc.run()
-                print("[\(Thread.current)] \(#function) end.")
-            }
-            
+        nonisolated
+        func test1() {
             print("[\(Thread.current)] \(#function) begin...")
-            await test()
+            let c = BaseClass()
+            c.value = "BaseClass"
+            let cc = DerivedClass()
+            cc.value = "DerivedClass"
+            c.run()
+            cc.run()
             print("[\(Thread.current)] \(#function) end.")
         }
+
+        print("[\(Thread.current)] \(#function) begin...")
+        test1()
+        print("[\(Thread.current)] \(#function) end.")
     }
     
     @objc func testConvertClosureToAsync() {
@@ -519,13 +522,13 @@ class CoroutineTableViewController: ListTableViewController {
 		
 		@BackgroundActor
 		func test2() async {
-			put("test2...heavy task")
+			await put("test2...heavy task")
 			let time1 = Date()
 			var count = 0
 			Range(1...Int(1e7)).forEach { i in
 				count += i
 			}
-			put("test2...return with result: \(count) time cost: \(Date().timeIntervalSince(time1))")
+            await put("test2...return with result: \(count) time cost: \(Date().timeIntervalSince(time1))")
 		}
 		
 		@MainActor
@@ -546,7 +549,7 @@ class CoroutineTableViewController: ListTableViewController {
 		@globalActor
 		actor BackgroundActor {
 			static let shared = BackgroundActor()
-			
+
 			init() {
 				put("BackgroundActor init...")
 			}
@@ -1179,8 +1182,8 @@ class CoroutineTableViewController: ListTableViewController {
             }
         }
 
-        struct Global {
-            static var cancel = Cancel()
+        actor Global {
+            static let cancel = Cancel()
             static let MAX_NUM = 1e6
         }
 
@@ -1234,16 +1237,15 @@ class CoroutineTableViewController: ListTableViewController {
         }
 
         @concurrent
-        func opWithConcurrentAnnotationButCallMainActorOp(watch: ((Double) -> Void)? = nil) async {
+        func opWithConcurrentAnnotationButCallMainActorOp(watch: sending ((Double) -> Void)? = nil) async {
             await op(watch: watch)
         }
 
         @concurrent
-        func opWithConcurrentAnnotation(watch: ((Double) async -> Void)? = nil) async {
+        func opWithConcurrentAnnotation(watch: sending ((Double) async -> Void)? = nil) async {
             await opWithAsync(watch: watch)
         }
 
-        @Sendable
         func opWithSendable(watch: ((Double) -> Void)? = nil) {
             put("begin long time operation...")
             let start = Date()
@@ -1289,7 +1291,7 @@ class CoroutineTableViewController: ListTableViewController {
         }),ListRow(title: "opWithAsyncWithSendableInTaskInClass", block: {
             Task {
                 class MyClass {
-                    func processDataWithTask(begin: @escaping () -> Void, end: @escaping () -> Void) {
+                    func processDataWithTask(begin: sending @escaping () -> Void, end: sending @escaping () -> Void) {
                         put("processDataWithTask...begin")
                         Task { @MainActor in
                             begin()
@@ -1345,7 +1347,7 @@ class CoroutineTableViewController: ListTableViewController {
                 class MyClass {
                     func processData() async {
                         put("processData...")
-                        opWithSendable()
+                        await opWithSendable()
                         put("processData...end")
                     }
                 }
@@ -1373,7 +1375,7 @@ class CoroutineTableViewController: ListTableViewController {
             class MyClass {
                 func processData() async {
                     put("processData...")
-                    opWithSendable()
+                    await opWithSendable()
                     put("processData...end")
                 }
             }

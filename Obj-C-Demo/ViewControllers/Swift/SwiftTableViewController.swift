@@ -253,7 +253,7 @@ class SwiftTableViewController: ListTableViewController {
             print("3...")
         }
         
-        class MyLock: NSLock, @unchecked Sendable {
+        nonisolated class MyLock: NSLock, @unchecked Sendable {
             override func lock() {
                 super.lock()
                 print("lock...")
