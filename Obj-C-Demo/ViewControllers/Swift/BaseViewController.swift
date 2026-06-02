@@ -7,12 +7,14 @@
 
 import UIKit
 
+@MainActor
 class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CountVC.shared.alloc(vc: self)
     }
-    
+
+    @MainActor
     deinit {
         CountVC.shared.dealloc(vc: self)
     }

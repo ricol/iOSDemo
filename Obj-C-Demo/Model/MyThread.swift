@@ -10,7 +10,7 @@ import Foundation
 @objc class MyThread: Thread {
     static var count: Int = 0
     var object: NSObject?
-    
+
     override init() {
         super.init()
         MyThread.count += 1

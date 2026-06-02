@@ -113,7 +113,8 @@ class MemoryTestViewController: ListTableViewController {
     @objc func handleNotifcation(notif: Notification) {
         print("notif: \(notif)")
     }
-    
+
+    @MainActor
     deinit {
         timer?.invalidate()
         NotificationCenter.default.removeObserver(self)

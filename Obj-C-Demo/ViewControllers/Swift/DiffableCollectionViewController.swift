@@ -6,6 +6,7 @@
 //
 
 class DiffableCollectionViewController: BaseViewController {
+    /*
     enum Section: Hashable {
         case main
         case other
@@ -197,4 +198,5 @@ class SectionHeaderReusableView: UICollectionReusableView {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+     */
 }

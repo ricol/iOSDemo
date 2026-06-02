@@ -232,7 +232,8 @@ class SwiftTableViewController: ListTableViewController {
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
+
+    @MainActor
     deinit {
         timer1?.invalidate()
     }

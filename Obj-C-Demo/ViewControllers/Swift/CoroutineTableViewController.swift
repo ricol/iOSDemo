@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
-@Sendable
 func put(_ s: String) {
 	print("[(\(Thread.isMainThread ? "Main" : "Other")] (\(Thread.current)) \(s)")
 }
 
+@MainActor
 class CoroutineTableViewController: ListTableViewController {
     var task: Task<Void, Never>?
     var primes = [Int]()
@@ -322,8 +322,10 @@ class CoroutineTableViewController: ListTableViewController {
             }
         }
     }
-    
+
+    @MainActor
     @objc func testMainActor() {
+        @MainActor
         class BaseClass {
             var value: String?
             
@@ -349,10 +351,13 @@ class CoroutineTableViewController: ListTableViewController {
                 print("[\(Thread.current)] end with time consumed: \(Date().timeIntervalSince(start))")
                 return count
             }
+
+            init(value: String? = nil) {
+                self.value = value
+            }
         }
-        
-        class DerivedClass: BaseClass {
-            
+
+        final class DerivedClass: BaseClass {
         }
         
         func test() {
@@ -377,9 +382,10 @@ class CoroutineTableViewController: ListTableViewController {
 //            await test()
 //            print("[\(Thread.current)] \(#function) end.")
 //        }
-        
+
         Task.detached {
-            func test() {
+            @MainActor
+            func test() async {
                 print("[\(Thread.current)] \(#function) begin...")
                 let c = BaseClass()
                 c.value = "BaseClass"

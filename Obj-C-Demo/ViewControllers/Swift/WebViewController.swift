@@ -54,7 +54,8 @@ class WebViewController: BaseViewController, WKScriptMessageHandler {
         }
         return nil
     }
-    
+
+    @MainActor
     deinit {
         theWebView.configuration.userContentController.removeAllScriptMessageHandlers()
     }
