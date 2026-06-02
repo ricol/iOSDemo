@@ -130,6 +130,239 @@ class CombineFrameworDemoViewController: BaseTableViewController {
     }
     
     var store: [AnyCancellable] = []
+
+    @objc func testJust() {
+        let justPublisher = Just("Hello, Combine!")
+
+        let _ = justPublisher.sink { value in
+            print(value)  // Output: Hello, Combine!
+        }
+    }
+
+    @objc func testEmpty() {
+        let emptyPublisher = Empty<String, Never>()
+
+        let _ = emptyPublisher.sink(
+            receiveCompletion: { completion in
+                print("Completed")
+            },
+            receiveValue: { value in
+                print(value)
+            }
+        )  // Output: Completed
+    }
+
+    @objc func testFail() {
+        enum SampleError: Error {
+            case exampleError
+        }
+
+        let failPublisher = Fail<String, SampleError>(error: .exampleError)
+        let _ = failPublisher.sink(
+            receiveCompletion: { completion in
+                print(completion)  // Output: failure(exampleError)
+            },
+            receiveValue: { value in
+                print(value)
+            }
+        )
+    }
+
+    @objc func testDeferred() {
+        let deferredPublisher = Deferred {
+            Just("Deferred start")
+        }
+        let _ = deferredPublisher.sink { value in
+            print(value)  // Output: Deferred start
+        }
+    }
+
+    @objc func testFuture() {
+        let futurePublisher = Future<String, Never> { promise in
+            DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+                promise(.success("Future value"))
+            }
+        }
+        let _ = futurePublisher.sink { value in
+            print(value)  // Output (after 1 second): Future value
+        }
+    }
+
+    @objc func testPassthroughSubject() {
+        let passthroughSubject = PassthroughSubject<String, Never>()
+        let task = passthroughSubject.sink { value in
+            print(value)
+        }
+        cancellables.append(task)
+        passthroughSubject.send("First message")  // Output: First message
+        passthroughSubject.send("Second message") // Output: Second message
+        cancellables.forEach { $0.cancel() }
+    }
+
+    @objc func testCurrentValueSubject() {
+        let currentValueSubject = CurrentValueSubject<Int, Never>(10)
+        let _ = currentValueSubject.sink { value in
+            print("Subscriber 1: \(value)")
+        }
+        currentValueSubject.send(20)  // Output: Subscriber 1: 20
+
+        let _ = currentValueSubject.sink { value in
+            print("Subscriber 2: \(value)")
+        }  // Output: Subscriber 2: 20
+    }
+
+    @objc func testSequence() {
+        let numbers = [1, 2, 3, 4, 5]  // A simple array
+        let sequencePublisher = Publishers.Sequence<[Int], Never>(sequence: numbers)
+
+        let _ = sequencePublisher.sink(
+            receiveCompletion: { completion in
+                print("Completed: \(completion)")
+            },
+            receiveValue: { value in
+                print("Value: \(value)")
+            }
+        )
+    }
+
+    @objc func testMerge() {
+        let publisher1 = Just("Hello")
+        let publisher2 = Just("World")
+
+        let mergedPublisher = publisher1.merge(with: publisher2)
+
+        let _ = mergedPublisher.sink(
+            receiveCompletion: { completion in
+                print("Completed: \(completion)")
+            },
+            receiveValue: { value in
+                print("Value: \(value)")
+            }
+        )
+    }
+
+    @objc func testCombineLatest() {
+        let publisher1 = PassthroughSubject<String, Never>()
+        let publisher2 = PassthroughSubject<Int, Never>()
+
+        let combinedPublisher = publisher1.combineLatest(publisher2)
+
+        let _ = combinedPublisher.sink { value in
+            print("Combined Value: \(value)")
+        }
+
+        publisher1.send("Hello")
+        publisher2.send(1)         // Emits ("Hello", 1)
+        publisher1.send("World")   // Emits ("World", 1)
+        publisher2.send(2)
+    }
+
+    @objc func testZip() {
+        let publisher1 = PassthroughSubject<String, Never>()
+        let publisher2 = PassthroughSubject<Int, Never>()
+
+        let zippedPublisher = publisher1.zip(publisher2)
+
+        let _ = zippedPublisher.sink { value in
+            print("Zipped Value: \(value)")
+        }
+
+        publisher1.send("A")
+        publisher2.send(1)        // Emits ("A", 1)
+        publisher1.send("B")
+        publisher1.send("C")
+        publisher2.send(2)        // Emits ("B", 2)
+    }
+
+    @objc func testOthers() {
+//        map
+//        Transforms each emitted value using a closure.
+//        You can transform the emitted data type into another data type.
+        let numbers = [1, 2, 3, 4, 5].publisher
+
+        let _ = numbers
+            .map { $0 * $0 } // Square each number
+            .map { "The square is \($0)" } // Format as a string
+            .sink { result in
+                print(result)
+            }
+
+//        flat map
+//        transforms each emitted value into a new publisher and flattens the resulting stream of publishers into a single, continuous stream of values. It is used to handle nested publishers and process their emitted values directly.
+        struct User {
+            let name: String
+        }
+
+        let userIDs = [1, 2, 3].publisher
+
+        let _ = userIDs
+            .flatMap { id in
+                fetchUser(for: id) // Returns a publisher emitting User
+            }
+            .sink { user in
+                print("Received user: \(user.name)")
+            }
+
+        func fetchUser(for id: Int) -> AnyPublisher<User, Never> {
+            Just(User(name: "User \(id)"))
+                .eraseToAnyPublisher()
+        }
+
+//        tryMap
+//
+//        Similar to map, but allows throwing errors.
+
+        enum ConversionError: Error {
+            case invalidNumber(String)
+        }
+
+        let strings = ["123", "456", "abc", "789"].publisher //Sequnce publisher
+
+        let _ = strings
+            .tryMap { str in
+                guard let number = Int(str) else {
+                    throw ConversionError.invalidNumber(str)
+                }
+                return number * 2 // Double the valid number
+            }
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        print("All values processed successfully.")
+                    case .failure(let error):
+                        print("Error occurred: \(error)")
+                    }
+                },
+                receiveValue: { value in
+                    print("Processed value: \(value)")
+                }
+            )
+
+//        Filter
+//
+//        Emits only the values that meet a specified condition.
+
+        let numbers1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].publisher
+
+        let _ = numbers1
+            .filter { $0 % 3 == 0 } // Only keep numbers divisible by 3
+            .sink { value in
+                print("Filtered value: \(value)")
+            }
+
+//        CompactMap
+//
+//        Emits only non-nil values after transforming the input.
+
+        let inputs = ["42", "hello", "100", "world", "300"].publisher
+
+        let _ = inputs
+            .compactMap { Int($0) } // Attempt to convert each string to an Int, ignore nil values
+            .sink { value in
+                print("Valid number: \(value)")
+            }
+    }
 }
 
 extension Notification.Name {
