@@ -129,6 +129,12 @@ extension CustomListView {
         let hosting = UIHostingController(rootView: self)
         (UIApplication.shared.keyWindow?.rootViewController as? UINavigationController)?.pushViewController(hosting, animated: true)
     }
+
+    func present() {
+        let hosting = UIHostingController(rootView: self)
+        hosting.modalPresentationStyle = .formSheet
+        UIApplication.shared.keyWindow?.rootViewController?.present(hosting, animated: true)
+    }
 }
 
 extension UIStoryboard {

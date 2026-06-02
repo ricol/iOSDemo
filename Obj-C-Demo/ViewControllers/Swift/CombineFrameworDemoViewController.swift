@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class CombineFrameworDemoViewController: BaseTableViewController {
+class CombineFrameworDemoViewController: ListTableViewController {
     class ViewModel {
         let btn: UIButton = UIButton()
         let lbl: UILabel = UILabel()
@@ -30,32 +30,7 @@ class CombineFrameworDemoViewController: BaseTableViewController {
     
     var cancellables: [AnyCancellable] = []
     let vm = ViewModel()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        vm.$flag.receive(on: DispatchQueue.main).assign(to: \.isEnabled, on: vm.btn).store(in: &cancellables)
-        vm.$flag.receive(on: DispatchQueue.main).map({ output in
-            "\(output)"
-        }).assign(to: \.text, on: vm.lbl).store(in: &cancellables)
-        vm.$flag.receive(on: DispatchQueue.main).assign(to: \.flag, on: vm.object).store(in: &cancellables)
-        vm.$flag.receive(on: DispatchQueue.main).map { output in
-            "\(output)"
-        }.assign(to: \.text, on: vm.object).store(in: &cancellables)
-    }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        if let text = cell?.textLabel?.text {
-            let sel: Selector = Selector("test\(text)")
-            if self.responds(to: sel) {
-                print("perform selector: \(sel.description)")
-                self.perform(sel)
-            }else {
-                print("unknown selector: \(sel.description)")
-            }
-        }
-    }
-    
     @objc func testNotificationWithExplicitSubscribers() {
         NotificationCenter.default.publisher(for: .myNotif).map { notif in
             notif.object as? String
@@ -80,34 +55,52 @@ class CombineFrameworDemoViewController: BaseTableViewController {
                 block()
             }))
         }
-        func show() {
-            print("[after 1 second] expecting \(self.vm.flag)......")
-            print("btn.isEnabled: \(self.vm.btn.isEnabled) -> \(self.vm.btn.isEnabled == self.vm.flag ? "pass": "fail")")
-            print("lbl.text: \(String(describing: self.vm.lbl.text)) -> \(self.vm.lbl.text == "\(self.vm.flag)" ? "pass" : "fail")")
-            print("object.text: \(self.vm.object.text) -> \(self.vm.object.text == "\(self.vm.flag)" ? "pass" : "fail")")
-            print("object.flag: \(self.vm.object.flag) -> \(self.vm.object.flag == self.vm.flag ? "pass" : "fail")")
-        }
-        
-        delay {
-            self.vm.flag.toggle()
-            delay {
-                show()
+
+        let menu = CustomListView(rows: [
+            ListRow(title: "Action 1", block: {
+                func show() {
+                    print("[after 1 second] expecting \(self.vm.flag)......")
+                    print("btn.isEnabled: \(self.vm.btn.isEnabled) -> \(self.vm.btn.isEnabled == self.vm.flag ? "pass": "fail")")
+                    print("lbl.text: \(String(describing: self.vm.lbl.text)) -> \(self.vm.lbl.text == "\(self.vm.flag)" ? "pass" : "fail")")
+                    print("object.text: \(self.vm.object.text) -> \(self.vm.object.text == "\(self.vm.flag)" ? "pass" : "fail")")
+                    print("object.flag: \(self.vm.object.flag) -> \(self.vm.object.flag == self.vm.flag ? "pass" : "fail")")
+                }
+
+                self.vm.$flag.receive(on: DispatchQueue.main).assign(to: \.isEnabled, on: self.vm.btn).store(in: &self.cancellables)
+                self.vm.$flag.receive(on: DispatchQueue.main).map({ output in
+                    "\(output)"
+                }).assign(to: \.text, on: self.vm.lbl).store(in: &self.cancellables)
+                self.vm.$flag.receive(on: DispatchQueue.main).assign(to: \.flag, on: self.vm.object).store(in: &self.cancellables)
+                self.vm.$flag.receive(on: DispatchQueue.main).map { output in
+                    "\(output)"
+                }.assign(to: \.text, on: self.vm.object).store(in: &self.cancellables)
+
                 delay {
                     self.vm.flag.toggle()
                     delay {
                         show()
-                        self.vm.flag = true
                         delay {
-                            show()
-                            self.vm.flag = false
+                            self.vm.flag.toggle()
                             delay {
                                 show()
+                                self.vm.flag = true
+                                delay {
+                                    show()
+                                    self.vm.flag = false
+                                    delay {
+                                        show()
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
+            }),
+            ListRow(title: "Action 2", block: {
+
+            })
+        ], title: "Menu", navigationView: true)
+        menu.present()
     }
     
     @objc func testTimer() {

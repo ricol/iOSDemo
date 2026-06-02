@@ -24,8 +24,20 @@ struct CustomListView: View {
     @State var rows = [ListRow(title: "Case 1", block: { print("case 1") }), ListRow(title: "Case 2", block: { print("case 2") })]
     @State private var result: String = ""
     var title: String = "List View"
-    
+    var navigationView: Bool = false
+
     var body: some View {
+        if navigationView {
+            NavigationView {
+                getBody()
+            }
+        } else {
+            getBody()
+        }
+    }
+
+    @ViewBuilder
+    func getBody() -> some View {
         ScrollView {
             VStack {
                 ForEach(rows, id: \.self) { row in
