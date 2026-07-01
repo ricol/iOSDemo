@@ -59,6 +59,7 @@
 		EDB143A22B8A186600494CFB /* MyTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB143A12B8A186600494CFB /* MyTimer.m */; };
 		EDB143A42B8B136800494CFB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB143A32B8B136800494CFB /* BaseViewController.swift */; };
 		EDB143B02B8B16B100494CFB /* MyTimerProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB143AF2B8B16B100494CFB /* MyTimerProxy.m */; };
+		EDB5BFA22FF5503A007E572A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EDB5BFA12FF5503A007E572A /* Kingfisher */; };
 		EDBDBC8F2BB3CD230078EA1A /* ThreadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDBDBC8E2BB3CD230078EA1A /* ThreadTableViewController.m */; };
 		EDC6E2B42C6A5874009229FD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC6E2B32C6A5874009229FD /* WebViewController.swift */; };
 		EDC6E2B62C6A58FE009229FD /* web.html in Resources */ = {isa = PBXBuildFile; fileRef = EDC6E2B52C6A58FE009229FD /* web.html */; };
@@ -176,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDB5BFA22FF5503A007E572A /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +415,9 @@
 				Base,
 			);
 			mainGroup = EDB143072B7B1F0300494CFB;
+			packageReferences = (
+				EDB5BFA02FF5503A007E572A /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = EDB143112B7B1F0300494CFB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -735,6 +740,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EDB5BFA02FF5503A007E572A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EDB5BFA12FF5503A007E572A /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EDB5BFA02FF5503A007E572A /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDB143082B7B1F0300494CFB /* Project object */;
 }
