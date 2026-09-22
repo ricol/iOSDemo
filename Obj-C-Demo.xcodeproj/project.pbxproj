@@ -6,10 +6,6 @@
 	objectVersion = 76;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		EDB5BFA22FF5503A007E572A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = EDB5BFA12FF5503A007E572A /* Kingfisher */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		EDB143102B7B1F0300494CFB /* Obj-C-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Obj-C-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,7 +100,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDB5BFA22FF5503A007E572A /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +168,6 @@
 			);
 			mainGroup = EDB143072B7B1F0300494CFB;
 			packageReferences = (
-				EDB5BFA02FF5503A007E572A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 56;
 			productRefGroup = EDB143112B7B1F0300494CFB /* Products */;
@@ -415,25 +409,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		EDB5BFA02FF5503A007E572A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.10.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		EDB5BFA12FF5503A007E572A /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EDB5BFA02FF5503A007E572A /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDB143082B7B1F0300494CFB /* Project object */;
 }

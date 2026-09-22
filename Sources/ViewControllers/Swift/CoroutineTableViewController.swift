@@ -865,22 +865,22 @@ class CoroutineTableViewController: ListTableViewController {
             }
         }
         
-        Task {
-            for await count in Counter(limit: 10) {
-                print("count: \(count)")
-            }
-            for await count in Counter(limit: 10).filter({ n in
-                n % 2 == 0
-            }) {
-                print("even number: \(count)")
-            }
-            let counterStream = Counter(limit: 10).map { n in
-                n % 2 == 0
-            }
-            for await count in counterStream {
-                print(count)
-            }
-        }
+//        Task {
+//            for await count in Counter(limit: 10) {
+//                print("count: \(count)")
+//            }
+//            for await count in Counter(limit: 10).filter({ n in
+//                n % 2 == 0
+//            }) {
+//                print("even number: \(count)")
+//            }
+//            let counterStream = Counter(limit: 10).map { n in
+//                n % 2 == 0
+//            }
+//            for await count in counterStream {
+//                print(count)
+//            }
+//        }
     }
     
     @objc func testAsyncStream() {
